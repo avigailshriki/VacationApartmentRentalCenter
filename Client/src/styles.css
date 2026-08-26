@@ -1,0 +1,17 @@
+.page-container {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+  font-family: 'Assistant', sans-serif;
+  color: #333;
+}
+
+/* h1 { color: wheat; font-size: 2.5rem; text-align: center; }
+.subtitle { text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 40px; } */
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+.contact-card { padding: 30px; border: 1px solid wheat; border-radius: 12px; background: #fafafa; }
+
+.terms-list h3 { color: wheat; margin-top: 30px; }
+
+html { scroll-behavior: smooth; }

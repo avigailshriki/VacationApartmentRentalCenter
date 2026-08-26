@@ -1,0 +1,141 @@
+<div class="dark-page-wrapper">
+  <h1 class="main-title">פרטי הנכס הנבחר</h1>
+
+  <div class="card-container" *ngIf="property; else loading">
+
+    <div class="luxury-card">
+      <div class="card-inner">
+        <h2 class="property-name">{{ property.Title }}</h2>
+        <div class="title-divider"></div>
+
+        <div class="info-grid">
+          <p class="property-text"><strong>📍 מיקום:</strong> {{ property.Address }}</p>
+          <p class="property-text"><strong>💰 מחיר ללילה:</strong> ₪{{ property.PricePerNight }}</p>
+          <p class="property-text"><strong>👥 כמות אנשים:</strong> {{ property.Capacity }}</p>
+          <p class="property-text">
+            <strong> סטטוס:</strong>
+            <span [class.available-badge]="property.IsAvailable" [class.unavailable-badge]="!property.IsAvailable">
+              {{ property.IsAvailable ? 'זמין להזמנה מיידית' : 'לא פנוי כרגע' }}
+            </span>
+          </p>
+        </div>
+        <p class="property-text description-text"><strong>📖 תיאור:</strong> {{ property.Description }}</p>
+      </div>
+    </div>
+    <div class="images-control mt-4">
+      <button (click)="toggleImages()" class="btn-modern">
+        {{ showImages ? 'סגור גלריית תמונות' : 'צפה בכל התמונות של הנכס' }}
+      </button>
+    </div>
+
+    <div class="images-gallery-container" *ngIf="showImages">
+      <div *ngIf="property?.Images?.length; else noImages">
+        <img *ngFor="let img of property?.Images" [src]="'https://localhost:7011' + img.ImageUrl" class="property-image"
+          alt="Property Image" />
+      </div>
+
+      <ng-template #noImages>
+        <p>אין תמונות זמינות לנכס זה כרגע.</p>
+      </ng-template>
+    </div>
+
+    <div class="map-control">
+      <button (click)="toggleMap()" class="btn-modern">
+        {{ showMap ? 'סגור מפה ' : 'הצג מיקום במפה ' }}
+      </button>
+    </div>
+    <div #mapElement *ngIf="showMap" class="map-container"></div>
+
+    <div class="attractions-section" *ngIf="nearbyAttractions.length > 0">
+      <h3 class="section-title">✨ מה יש מעניין בסביבה?</h3>
+      <div class="attractions-list">
+        @for (attraction of nearbyAttractions; track attraction.name) {
+        <div class="attraction-card">
+          <h4 class="attraction-name">{{ attraction.name }}</h4>
+          <p class="attraction-address">📍 {{ attraction.address }}</p>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="reviews-section">
+      <h3 class="section-title">⭐ חוות דעת אורחים</h3>
+
+      <div class="reviews-list">
+        @for (review of property.Reviews || []; track $index) {
+        <div class="review-card">
+          <div class="stars-container">
+            @for (i of [1, 2, 3, 4, 5]; track i) {
+            <span class="star" [class.filled]="i <= review.Rating">★</span>
+            }
+          </div>
+          <p><strong>📝 חוות דעת:</strong> {{ review.Comment }}</p>
+          <p><small>מאת: {{ review.Name }} | {{ review.Date | date:'dd/MM/yyyy' }}</small></p>
+        </div>
+        } @empty {
+        <p class="empty-msg">אין עדיין חוות דעת לנכס זה!</p>
+        }
+      </div>
+
+      <hr class="review-divider" />
+
+      <div class="add-review-container">
+        <h4>✍️ הוספת חוות דעת</h4>
+        <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="review-form">
+          <div class="mb-3">
+            <label class="form-label">שם מלא:</label>
+            <input type="text" class="form-control" formControlName="Name" placeholder="איך קוראים לכם?">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">דירוג (1-5):</label>
+            <input type="number" class="form-control" formControlName="Rating" min="1" max="5">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">חוות דעת:</label>
+            <textarea class="form-control" formControlName="Comment" rows="3"
+              placeholder="ספרו לנו איך היה..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">שלח חוות דעת</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="details-section">
+
+      <!-- <div class="amenities-section">
+        <h3 class="section-title">🛠️ מתקנים בנכס:</h3>
+        <div class="amenities-list">
+          @for (amenity of property.Amenities; track $index) {
+          <div class="amenity-item">
+            <span class="amenity-badge">✨ {{ amenity.Name }}</span>
+            <span class="amenity-price">{{ amenity.Price > 0 ? '(₪' + amenity.Price + ')' : '(כלול)' }}</span>
+          </div>
+          } @empty {
+          <p class="empty-msg">אין מתקנים זמינים.</p>
+          }
+        </div>
+      </div> -->
+      <div class="owner-section">
+        <h3 class="section-title">👤 פרטי בעל הנכס:</h3>
+        <div class="owner-card">
+          <p><strong>שם:</strong> {{ property.Owner?.FullName }}</p>
+          <p><strong>טלפון:</strong> {{ property.Owner?.PhoneNumber }}</p>
+          <p><strong>אימייל:</strong> {{ property.Owner?.Email }}</p>
+        </div>
+      </div>
+
+      <button class="back-list-btn" routerLink="/property-list">→ חזרה לרשימת הדירות</button>
+
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-msg">
+      <div class="spinner"></div>
+      ⏳ טוען את פרטי הנכס...
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,27 @@
+<div class="user-card">
+    <h3 class="card-title">פרטי משתמש</h3>
+    <div class="user-info">
+        <div class="input-group">
+            <label>שם פרטי</label>
+            <input type="text" [(ngModel)]="user.FirstName" name="FirstName" class="user-input">
+        </div>
+        <div class="input-group">
+            <label>שם משפחה</label>
+            <input type="text" [(ngModel)]="user.LastName" name="LastName" class="user-input">
+        </div>
+        <div class="input-group">
+            <label>אימייל</label>
+            <input type="email" [(ngModel)]="user.Email" name="Email" class="user-input">
+        </div>
+        <div class="input-group">
+            <label>טלפון</label>
+            <input type="text" [(ngModel)]="user.PhoneNumber" name="PhoneNumber" class="user-input">
+        </div>
+        <div class="input-group">
+            <label>סיסמה</label>
+            <input type="password" [(ngModel)]="user.Password" name="Password" class="user-input"
+                placeholder="********">
+        </div>
+    </div>
+    <button class="update-btn" (click)="updateUser()">עדכון פרטים</button>
+</div>

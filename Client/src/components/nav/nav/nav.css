@@ -1,0 +1,102 @@
+/* ==========================================================================
+   עטיפה ראשית - שומרת על מסגרת יוקרתית ונקייה לכל הניווט (תואם לשמנת/לבן של האתר)
+   ========================================================================== */
+.nav-container {
+  display: flex;
+  flex-direction: row-reverse; /* שומר על סדר אלמנטים נכון בעברית (מימין לשמאל) */
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #fdfbf7;   /* גוון שמנת בהיר מאוד, יוקרתי ואלגנטי */
+  border-bottom: 2px solid #eaddca; /* קו הפרדה עדין בגוון תואם */
+}
+
+/* ==========================================================================
+   עיצוב הקישורים במרכז (סגנון גלולה עדין משודרג)
+   ========================================================================== */
+.nav-links-center {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  gap: 20px; /* ריווח נדיב ואלגנטי בין הגלולות */
+}
+
+.nav-links-center a {
+  text-decoration: none;
+  color: #5c4033; /* צבע חום כהה עשיר במקום אפור פשוט */
+  font-weight: 600;
+  font-size: 1rem;
+  
+  /* יצירת מראה גלולה מושלם */
+  padding: 10px 24px;       
+  border-radius: 50px;      /* עיגול מקסימלי */
+  background-color: rgba(191, 161, 129, 0.05); /* רקע זהוב-שמנת חלש מאוד שתמיד קיים */
+  border: 1px solid transparent;
+  
+  transition: all 0.35s ease; /* אנימציה חלקה לכל שינוי */
+}
+
+/* אפקט Hover - מעבר לזהב מלא עם טקסט לבן וגדילה עדינה */
+.nav-links-center a:hover {
+  background-color: #bfa181; /* צבע זהוב מלכותי */
+  color: #ffffff !important; /* טקסט לבן נקי */
+  border-color: #bfa181;
+  transform: scale(1.05);    /* גדילה קלה שנותנת תחושה חיה */
+}
+
+/* ==========================================================================
+   עיצוב כפתור ראשי ("כניסה למערכת") - בצד ימין
+   ========================================================================== */
+.register-btn {
+  background-color: #bfa181; /* זהב מלכותי כבסיס */
+  color: #ffffff !important;
+  padding: 12px 30px;
+  border-radius: 50px;       /* עיגול תואם לגלולות של התפריט */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 10px rgba(191, 161, 129, 0.25); /* צל מוזהב עדין */
+  transition: all 0.35s ease;
+}
+
+.register-btn:hover {
+  background-color: #a68a6d; /* גוון זהב כהה יותר במעבר עכבר */
+  box-shadow: 0 6px 15px rgba(191, 161, 129, 0.4);
+  transform: translateY(-2px); /* קפיצה קלה למעלה */
+}
+
+/* ==========================================================================
+   עיצוב אזור הפרופיל (ברכת השלום וכפתור ההתנתקות) - בצד שמאל
+   ========================================================================== */
+.user-profile-zone {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* מרחק קבוע ואחיד בין ברכת השלום לכפתור */
+  font-size: 1rem;
+}
+
+/* עיצוב ברכת השלום עצמה */
+.user-profile-zone span {
+  color: #5c4033; /* חום כהה יוקרתי */
+  font-weight: 700;
+}
+
+/* 🔥 עיצוב כפתור "התנתק" - משתלב בצורת הגלולה של שאר האתר */
+.user-profile-zone button {
+  background-color: transparent;
+  color: black; 
+  border: 1px solid #a68a6d; /* גבול עדין בגוון זהב כהה */
+  padding: 8px 20px;
+  border-radius: 50px; /* גלולה מושלמת שמתכתבת עם שאר הכפתורים */
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* אפקט Hover לכפתור ההתנתקות */
+.user-profile-zone button:hover {
+  background-color: #a68a6d; /* הופך לאדום מלא */
+  color: #ffffff;            /* טקסט הופך ללבן */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(217, 83, 79, 0.2);
+}

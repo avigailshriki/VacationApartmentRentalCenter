@@ -1,0 +1,140 @@
+/* רקע כללי לכל העמוד שממרכז את הטופס */
+.login-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* מתאים את עצמו לגובה המסך פחות ה-Navbar */
+  background-color: #faf6f0; /* רקע קרם בהיר וחמים התואם לאתר */
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  direction: rtl;
+  padding: 20px;
+}
+
+/* קופסת הטופס היוקרתית */
+.login-card {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 420px; /* רוחב אידיאלי שלא יתפרס יותר מדי */
+  padding: 40px 35px;
+  border-radius: 24px; /* פינות מעוגלות ורכות כמו בכרטיסי הדירות */
+  border: 1px solid rgba(197, 168, 128, 0.25); /* מסגרת זהב עדינה */
+  box-shadow: 0 10px 30px rgba(197, 168, 128, 0.08); /* צל קליל ואלגנטי */
+  display: flex;
+  flex-direction: column;
+}
+
+/* כותרת הטופס */
+.login-title {
+  color: #5a5045;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+/* קו מפריד זהוב דקורטיבי */
+.title-divider {
+  width: 50px;
+  height: 3px;
+  background-color: #bc9c6e; /* זהב מלכותי */
+  margin: 0 auto 30px auto;
+  border-radius: 2px;
+}
+
+/* עיצוב אחיד לכל שדות הקלט */
+.login-card input {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(197, 168, 128, 0.3); /* מסגרת זהב בהירה */
+  border-radius: 12px;
+  background-color: #fafafa;
+  font-size: 1rem;
+  color: #5a5045;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+/* ביטול חצי המקלדת הקטנים בשדות מספר (כמו טלפון) */
+.login-card input[type="number"]::-webkit-inner-spin-button,
+.login-card input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* אפקט החלקה כשלוחצים על שדה (Focus) */
+.login-card input:focus {
+  outline: none;
+  border-color: #bc9c6e; /* הדגשת המסגרת בזהב */
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(188, 156, 110, 0.1); /* הילה מוזהבת עדינה */
+}
+
+/* התאמת צבע המילים המנחות (Placeholder) */
+.login-card input::placeholder {
+  color: #aaa49d;
+  font-size: 0.95rem;
+}
+
+/* כפתור ההתחברות */
+.login-card button {
+  width: 100%;
+  padding: 14px;
+  background-color: #bc9c6e; /* צבע זהב מלא התואם לקישור ה-Login ב-Nav */
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(188, 156, 110, 0.2);
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+/* אפקט ריחוף מעל הכפתור */
+.login-card button:hover {
+  background-color: #a88758; /* זהב כהה יותר */
+  box-shadow: 0 6px 18px rgba(188, 156, 110, 0.3);
+  transform: translateY(-1px);
+}
+
+/* אפקט לחיצה על הכפתור */
+.login-card button:active {
+  transform: translateY(1px);
+}
+/* --- עיצוב שדות חובה (Required) וולדיציות --- */
+
+/* כשהשדה ריק ולא תקין (רק אחרי שהמשתמש נגע בו או ניסה לשלוח) */
+.login-card input:placeholder-shown:invalid:focus {
+  border-color: #d9534f; /* אדום עדין של שגיאה */
+  box-shadow: 0 0 0 4px rgba(217, 83, 79, 0.1); /* הילה אדומה רכה */
+}
+
+/* כשהשדה מולא כראוי ותקין */
+.login-card input:not(:placeholder-shown):valid {
+  border-color: #bc9c6e; /* נשאר עם זהב האתר היוקרתי */
+  background-color: #fbfbf9; /* רקע בהיר ונקי */
+}
+
+/* כשהמשתמש מנסה להקליד בשדה חובה, נשמור על פוקוס זהב אלגנטי */
+.login-card input:focus:valid {
+  border-color: #bc9c6e;
+  box-shadow: 0 0 0 4px rgba(188, 156, 110, 0.1);
+}
+/* עיצוב התווית שמעל שדה הקלט */
+.input-label {
+  display: block;
+  color: #5a5045; /* התאמה לצבע הטקסט החמים של האתר */
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-align: right;
+}
+
+/* עיצוב כוכבית החובה */
+.required-star {
+  color: #d9534f; /* צבע אדום שגיאה בולט */
+  margin-right: 2px;
+  font-weight: 700;
+}

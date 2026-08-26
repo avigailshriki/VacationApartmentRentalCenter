@@ -1,0 +1,48 @@
+<div class="dark-page-wrapper" dir="rtl">
+    <div class="container">
+        <h2 class="main-title">הדירות שלי במערכת</h2>
+
+        <div *ngIf="isLoading" class="text-center my-5 loading-msg">
+            <p>טוען את הנכסים שלך, אנא המתן...</p>
+        </div>
+
+        <div *ngIf="!isLoading && myProperties.length === 0" class="alert alert-info text-center">
+            לא נמצאו דירות בבעלותך במערכת. באפשרותך להוסיף נכס חדש בלשונית "הוספת נכס".
+        </div>
+
+        <div *ngIf="!isLoading && myProperties.length > 0" class="row">
+            <div class="col-md-4 mb-4" *ngFor="let property of myProperties">
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-img-top"
+                        [style.backgroundImage]="property.Images && property.Images.length > 0 ? 'url(https://localhost:7011' + property.Images[0].ImageUrl + ')' : 'none'"
+                        [class.no-image]="!property.Images || property.Images.length === 0">
+                        <i *ngIf="!property.Images || property.Images.length === 0" class="bi bi-house-door"></i>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ property.Title }}</h5>
+                        <p class="card-text mb-1"><strong>עיר:</strong> {{ property.City }}</p>
+                        <p class="card-text mb-1"><strong>כתובת:</strong> {{ property.Address }}</p>
+                        <p class="card-text"><strong>קיבולת:</strong> {{ property.Capacity }} אורחים</p>
+                        <p class="card-text text-muted small">{{ property.Description }}</p>
+                        <div class="property-gallery" *ngIf="property.Images && property.Images.length > 0">
+                            <img *ngFor="let img of property.Images" [src]="'https://localhost:7011' + img.ImageUrl"
+                                alt="תמונת נכס" class="gallery-thumbnail">
+                        </div>
+                    </div>
+
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <span class="text-success">₪{{ property.PricePerNight }} / לילה</span>
+                        <br>
+                        <button class="edit-btn" (click)="changeStatus(property)">
+                            {{ property.IsAvailable ? 'פנוי' : 'תפוס' }}
+                        </button>
+                        <!-- <button class="edit-btn" (click)="updateProperty(property.Id)">עדכון</button> -->
+                        <button class="del-btn" (click)="deleteProperty(property.Id)">מחיקה</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

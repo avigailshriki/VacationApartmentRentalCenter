@@ -1,0 +1,31 @@
+<div class="login-page-wrapper">
+  <form #loginForm="ngForm" class="login-card" (ngSubmit)="toLogIn(loginForm)">
+    <h2 class="login-title">כניסה למערכת</h2>
+    <div class="title-divider"></div>
+    
+    <div class="input-group">
+      <label class="input-label">כתובת אימייל <span class="required-star">*</span></label>
+      <input type="email" placeholder="הכנס כתובת אמייל" [(ngModel)]="loginData.email" name="email" #emailRef="ngModel" required>
+      <span class="error-message" *ngIf="emailRef.invalid && (emailRef.touched || loginForm.submitted)">❌ נא להזין כתובת אימייל תקינה</span>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">סיסמה <span class="required-star">*</span></label>
+      <input type="password" placeholder="הכנס סיסמה" [(ngModel)]="loginData.password" name="password" #passwordRef="ngModel" required>
+      <span class="error-message" *ngIf="passwordRef.invalid && (passwordRef.touched || loginForm.submitted)">❌ שדה סיסמה הוא חובה</span>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">שם  <span class="required-star">*</span></label>
+      <input type="text" placeholder="הכנס שם" [(ngModel)]="loginData.fullName" name="fullName" #nameRef="ngModel" required>
+      <span class="error-message" *ngIf="nameRef.invalid && (nameRef.touched || loginForm.submitted)">❌ נא להזין שם </span>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">מספר טלפון <span class="required-star">*</span></label>
+<input type="tel" placeholder="הכנס מספר טלפון" [(ngModel)]="loginData.phone" name="phone" #phoneRef="ngModel" required>      <span class="error-message" *ngIf="phoneRef.invalid && (phoneRef.touched || loginForm.submitted)">❌ נא להזין מספר טלפון</span>
+    </div>
+    
+    <button type="submit">הרשם</button>
+  </form>
+</div>

@@ -1,0 +1,52 @@
+<div class="filters-container" style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+  <div class="filters-container">
+
+    <div class="filter-group">
+      <label class="filter-label">ישוב</label>
+      <select [(ngModel)]="selectedCity" (ngModelChange)="applyFilters()" class="filter-control">
+        <option value="">כל הערים</option>
+        @for (city of filters; track city) {
+        <option [value]="city">{{city}}</option>
+        }
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label class="filter-label">שם הנכס</label>
+      <input type="text" placeholder="חיפוש חופשי..." [(ngModel)]="searchTitle" (input)="applyFilters()"
+        class="filter-control">
+    </div>
+
+    <div class="filter-group">
+      <label class="filter-label">מחיר עד: {{currentMaxPrice}}₪</label>
+      <input type="range" min="0" max="10000" step="100" [(ngModel)]="currentMaxPrice" (change)="applyFilters()"
+        class="filter-control">
+    </div>
+
+    <div class="filter-group">
+      <label class="filter-label">מינימום אורחים</label>
+      <input type="number" placeholder="1" [(ngModel)]="currentCapacity" (input)="applyFilters()"
+        class="filter-control" min="1">
+    </div>
+
+    <div class="filter-group" style="justify-content: flex-end;">
+      <button (click)="clearFilters()" class="clear-btn">נקה סינונים</button>
+    </div>
+  </div>
+  <div class="luxury-grid">
+    @for (p of properties; track p?.Id || $index) {
+    <div class="luxury-card">
+      <div class="card-img" [style.backgroundImage]="getPropertyImageUrl(p)" [class.no-image]="!p?.Images?.length">
+        <i *ngIf="!p?.Images?.length" class="bi bi-house-door"></i>
+      </div>
+
+      <div class="card-content">
+        <h2 class="property-name">{{ p?.Title }}</h2>
+        <p class="property-location">מיקום: {{ p?.City }} 📍</p>
+        <button class="details-btn" (click)="onViewDetails(p.Id!)">לפרטים נוספים</button>
+      </div>
+    </div>
+    } @empty {
+    <p class="loading-properties">לא נמצאו נכסים...</p>
+    }
+  </div>

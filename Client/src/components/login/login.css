@@ -1,0 +1,76 @@
+/* עטיפה ראשית כדי למרכז את הטופס באמצע המסך */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #faf6f0; /* רקע קרם בהיר וחמים התואם לאתר */
+}
+
+/* הכרטיס הלבן של הטופס */
+form {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+/* עיצוב השדות */
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box; /* חשוב כדי שה-padding לא יגדיל את הרוחב */
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #bfa181; /* צבע זהוב/חום מעודן */
+  outline: none;
+}
+
+/* עיצוב הכפתור */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #bfa181;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #a68a6d;
+}
+input {
+  /* מיישר את הטקסט לימין */
+  text-align: right; 
+  
+  /* מגדיר את כיוון הכתיבה לימין לשמאל */
+  direction: rtl; 
+  
+  /* מוסיף ריווח פנימי כדי שהטקסט לא ייצמד לקצה */
+  padding-right: 10px;
+}
+
+/* אופציונלי: לעיצוב מקצועי יותר */
+input::placeholder {
+  text-align: right;
+  direction: rtl;
+}

@@ -1,0 +1,8 @@
+<div class="login-container">
+  <form #loginForm="ngForm">
+    <h1>התחברות</h1>
+    <input type="text" placeholder="הכנס כתובת אימייל" [(ngModel)]="data.email" name="email" required>
+    <input type="password" placeholder="הכנס סיסמה" [(ngModel)]="data.password" name="password" required>
+    <button (click)="onSubmitLogin()">התחבר</button>
+  </form>
+</div>

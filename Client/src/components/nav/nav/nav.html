@@ -1,0 +1,28 @@
+<nav class="nav-container">
+
+  @if (!getUserName()) {
+  <a routerLink="/register" class="register-btn">כניסה למערכת</a>
+  }
+  <div class="nav-links-center">
+    @if (!getUserName()) {
+    <a routerLink="/login">התחברות</a>
+    }
+    @if (getUserName()) {
+    <a routerLink="/user">איזור אישי</a>
+    <a routerLink="/addproperty">הוספת נכס</a>
+    <a routerLink="/my-properties">הדירות שלי</a>
+    }
+    <a routerLink="/property-list">כל הדירות</a>
+    <a routerLink="/home">דף הבית</a>
+    <a routerLink="/images">גלרייה תמונות</a>
+  </div>
+
+  <div class="user-profile-zone">
+    @if (getUserName()) {
+    <span>שלום, {{ userName | async }}</span>
+    <button (click)="logout()">
+      התנתק
+    </button>
+    }
+  </div>
+</nav>

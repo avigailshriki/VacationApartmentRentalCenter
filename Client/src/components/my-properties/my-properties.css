@@ -1,0 +1,296 @@
+/* CONTAINER & WRAPPER - התאמה מלאה לרקע של עמוד ההוספה */
+.dark-page-wrapper {
+  background: radial-gradient(circle at top center, #fbf6f6 0%, #ffd8f5 100%);
+  min-height: 100vh;
+  padding: 50px 20px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+/* MAIN CONTAINER WIDTH */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* TITLE - כותרת שחורה-מטאלית אלגנטית */
+.main-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, #000000 0%, #7c7878 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* LOADING & ALERT MESSAGES */
+.loading-msg, .alert-info {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  border-radius: 16px !important;
+  color: #1e293b !important;
+  padding: 20px !important;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  margin: 40px auto !important;
+}
+
+/* PROPERTY CARD - כרטיסיות בהירות בעיצוב זכוכית יוקרתי */
+.card {
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 
+              0 4px 15px rgba(192, 145, 180, 0.05) !important;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 
+              0 0 25px rgba(192, 145, 180, 0.25) !important;
+}
+
+/* CARD IMAGE TOP / HOUSE ICON PLACEHOLDER */
+.card-img-top {
+  background: rgba(192, 145, 180, 0.08) !important; /* גוון סגלגל עדין לאזור האייקון */
+  border-bottom: 1px solid rgba(192, 145, 180, 0.15) !important;
+  color: #c091b4 !important; /* האייקון בצבע הוורוד-סגול שלך */
+  transition: background 0.3s ease, color 0.3s ease;
+}
+/* אזור גלריית התמונות */
+.property-gallery {
+  display: flex;
+  flex-direction: row;      /* מבטיח שהתמונות יהיו בשורה */
+  gap: 15px;                /* 🔥 זה הרווח שביקשת! (ניתן לשנות ל-20px אם רוצים יותר) */
+  margin-top: 15px;
+  border-top: 1px solid rgba(192, 145, 180, 0.15);
+  padding-top: 15px;
+  overflow-x: auto;         /* גלילה אופקית אם יש הרבה תמונות */
+  padding-bottom: 5px;      /* רווח קטן למטה כדי שלא ייחתך בגללה */
+}
+
+/* הגדרת גודל התמונות בגלריה */
+.gallery-thumbnail {
+  width: 120px;             /* הגדלתי מעט כדי שיראו את התמונה ברור */
+  height: 120px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;           /* קריטי: מונע מהתמונות להצטמק כשמוסיפים רווח */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+/* כפתורים - עיצוב אחיד וגדול יותר */
+.btn-status, .edit-btn, .del-btn {
+  padding: 10px 20px !important;    /* הגדלת הכפתורים */
+  font-size: 0.95rem !important;    /* טקסט מעט גדול יותר */
+  font-weight: 600 !important;
+  border-radius: 12px !important;   /* פינות מעוגלות תואמות לכרטיס */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none !important;
+  min-width: 90px;                  /* רוחב מינימלי למראה אחיד */
+  color: white !important;
+  text-align: center;
+}
+
+/* צבע אחיד לכולם - סגלגל יוקרתי */
+.edit-btn, .del-btn, .btn-status {
+  background: linear-gradient(135deg, #c091b4 0%, #a6749b 100%) !important;
+  box-shadow: 0 4px 10px rgba(192, 145, 180, 0.2);
+}
+
+/* אפקט Hover אחיד לכולם */
+.edit-btn:hover, .del-btn:hover, .btn-status:hover {
+  background: linear-gradient(135deg, #a6749b 0%, #c091b4 100%) !important;
+  box-shadow: 0 6px 15px rgba(192, 145, 180, 0.4);
+  transform: translateY(-2px);
+}
+
+/* התאמה אישית לצבע הסטטוס אם תרצה בכל זאת להבדיל */
+/* אם אתה רוצה שהסטטוס "פנוי" יישאר ירוק, מחק את השורה הבאה */
+/* אחרת, כולם יהיו באותו סגנון */
+.card:hover .card-img-top {
+  background: rgba(192, 145, 180, 0.15) !important;
+  color: #a6749b !important;
+}
+
+/* CARD BODY CONTENTS */
+.card-body {
+  padding: 24px !important;
+}
+
+.card-title {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important; /* טקסט כהה וברור */
+  margin-bottom: 14px !important;
+}
+
+.card-text {
+  color: #334155 !important;
+  font-size: 0.95rem !important;
+}
+
+.card-text strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* DESCRIPTION TEXT */
+.card-text.text-muted.small {
+  color: #64748b !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* מגביל את התיאור ל-3 שורות כדי שהכרטיסיות יישארו בגובה אחיד */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+/* CARD FOOTER */
+.card-footer {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-top: 1px solid rgba(192, 145, 180, 0.12) !important;
+  padding: 16px 20px !important;
+  gap: 8px;
+}
+
+/* PRICE DISPLAY */
+.card-footer span.text-success {
+  color: #1e293b !important; /* שינוי לשחור/אפור כהה אלגנטי במקום ירוק בוהק */
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+}
+
+/* STATUS BADGE BUTTONS (פנוי / תפוס) */
+.btn-status {
+  padding: 6px 14px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  border-radius: 30px !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.bg-success {
+  background-color: #10b981 !important; /* ירוק מנטה פסטלי מעט */
+  color: white !important;
+}
+
+.bg-danger {
+  background-color: #ef4444 !important; /* אדום קורל עדין */
+  color: white !important;
+}
+
+.btn-status:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* DELETE BUTTON - לחצן מחיקה בעיצוב שחור-מטאלי תואם ללחצן הראשי */
+.del-btn {
+  background: linear-gradient(135deg, #000000 0%, #7c7878 100%);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.del-btn:hover {
+  background: linear-gradient(135deg, #7c7878 0%, #000000 100%); /* הופך לאדום אלגנטי רק בהובר לשם התראה על מחיקה */
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
+}
+
+/* BOOTSTRAP GRID ADJUSTMENT */
+.mb-4 {
+  margin-bottom: 24px !important;
+}
+
+/* EDIT BUTTON - לחצן עדכון בעיצוב פנינה סגלגל יוקרתי */
+.edit-btn {
+  background: linear-gradient(135deg, #c091b4 0%, #a6749b 100%);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(192, 145, 180, 0.15);
+}
+
+.edit-btn:hover {
+  background: linear-gradient(135deg, #a6749b 0%, #c091b4 100%);
+  box-shadow: 0 6px 15px rgba(192, 145, 180, 0.35);
+  transform: translateY(-1px);
+}
+/* כל העיצובים הקודמים שלך נשארים, ונוסיף את זה: */
+
+.card-img-top {
+  height: 200px;
+  background-size: cover !important;
+  background-position: center !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.card-img-top.no-image {
+  background: rgba(192, 145, 180, 0.08) !important;
+  color: #c091b4 !important;
+  font-size: 3rem;
+}
+
+.card-img-top:not(.no-image)::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+}
+
+.card:hover .card-img-top:not(.no-image)::after {
+  background: rgba(0, 0, 0, 0);
+}
+/* גלילה יפה לגלריה */
+.property-gallery::-webkit-scrollbar {
+  height: 4px;
+}
+.property-gallery::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.gallery-thumbnail {
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.gallery-thumbnail:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+

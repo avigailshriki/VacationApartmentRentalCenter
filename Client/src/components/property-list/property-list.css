@@ -1,0 +1,185 @@
+/* --- גריד כרטיסים --- */
+.luxury-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* --- כרטיס נכס (תמונה למעלה, תוכן למטה) --- */
+.luxury-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e8e4de;
+  display: flex;
+  flex-direction: column; /* תמונה מעל תוכן */
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+}
+
+.luxury-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(188, 156, 110, 0.15);
+}
+
+/* --- תמונה בחלק העליון --- */
+.card-img {
+  width: 100%;
+  height: 180px; /* גובה התמונה */
+  background-size: cover;
+  background-position: center;
+}
+
+/* --- תוכן בחלק התחתון --- */
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: right;
+}
+
+/* --- טיפוגרפיה וכפתור --- */
+.property-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2a2520;
+  margin: 0;
+}
+
+.property-location {
+  font-size: 0.9rem;
+  color: #7a7065;
+  margin: 0;
+}
+
+.details-btn {
+  background-color: #bc9c6e;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.details-btn:hover {
+  background-color: #9c7f56;
+}
+/* 1. הגדרת המעבר (Transition) על התמונה עצמה */
+.card-img {
+  width: 100%;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  /* נוסיף מעבר חלק לזום */
+  transition: transform 0.5s ease; 
+}
+
+/* 2. הפעלת הזום כאשר עוברים עם העכבר על הכרטיס כולו */
+.luxury-card:hover .card-img {
+  transform: scale(1.1); /* מגדיל את התמונה ב-10% */
+}
+
+/* 3. כדי שהתמונה לא תצא מגבולות הכרטיס בזמן ההגדלה */
+.luxury-card {
+  /* ... שאר הקוד שלך ... */
+  overflow: hidden; /* קריטי - מבטיח שמה שגדל נשאר בתוך הריבוע */
+}
+/* --- אזור סינונים - מותאם לגריד ה-Luxury --- */
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  background-color: #fdfcf9; /* רקע שמנת בהיר מאוד */
+  padding: 25px;
+  border: 1px solid #e8e4de;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #7a7065;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filter-control {
+  padding: 10px 15px;
+  border: 1px solid #e8e4de;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  color: #2a2520;
+  outline: none;
+}
+
+.filter-control:focus {
+  border-color: #bc9c6e;
+}
+
+/* --- סליידר מחיר - מותאם לצבע הבוטיק --- */
+input[type="range"].filter-control {
+  accent-color: #bc9c6e;
+  background: none;
+}
+
+/* --- כפתור נקה - עיצוב מינימליסטי --- */
+.clear-btn {
+  background-color: transparent;
+  color: #7a7065;
+  border: 1px solid #e8e4de;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.clear-btn:hover {
+  background-color: #e8e4de;
+  color: #2a2520;
+}
+/* --- עיצוב עמוד שלם - מרווח ויוקרתי --- */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #fcfbf9; /* רקע שמנת עדין מאוד */
+}
+
+/* המעטפת הראשית של העמוד */
+.page-wrapper {
+  width: 150%;        /* תופס כמעט את כל רוחב המסך */
+  max-width: 1400px; /* הגבלה כדי שלא יהיה מתוח מדי במסכים רחבים */
+  margin: 0 auto;    /* מרכוז */
+  padding: 40px 20px;
+}
+
+/* הפיכת הגריד לדינמי ומלא */
+.luxury-grid {
+  display: grid;
+  /* יצירת עמודות אוטומטיות שמתאימות את עצמן */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 40px; 
+  width: 100%;
+}

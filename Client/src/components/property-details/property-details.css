@@ -1,0 +1,791 @@
+/* פריסת העמוד הכללית - Luxury Warm Cream */
+.dark-page-wrapper {
+  background-color: #faf6f0; /* גוון שמנת עדין וחמים הממשיך את דף הבית */
+  color: #3a3530; /* טקסט כהה רך */
+  min-height: 100vh;
+  padding: 60px 20px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  direction: rtl;
+}
+
+/* כותרת הדף המרכזית */
+.main-title {
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: #2a2520;
+  margin-bottom: 50px;
+}
+
+.main-title::after {
+  content: "♦";
+  display: block;
+  font-size: 1rem;
+  color: #c5a880; /* זהב בוטיק */
+  margin-top: 8px;
+}
+
+/* מכל הכרטיס המרכזי - ממורכז ומרווח */
+.card-container {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+/* כרטיס הפרטים הגדול */
+.luxury-card {
+  background-color: #ffffff;
+  border-radius: 24px;
+  border: 1px solid rgba(220, 214, 205, 0.7);
+  box-shadow: 0 15px 45px rgba(197, 168, 128, 0.12);
+  overflow: hidden;
+}
+
+.card-inner {
+  padding: 45px;
+}
+
+/* שם הנכס */
+.property-name {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #2a2520;
+  margin: 0 0 15px 0;
+}
+
+/* קו הפרדה זהוב קלאסי */
+.title-divider {
+  height: 1px;
+  background-color: #e0d8cd;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+/* שורות הטקסט של המידע המרכזי */
+.property-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  color: #4a443f;
+}
+
+.property-text strong {
+  color: #2a2520;
+  font-weight: 600;
+}
+
+/* --- אזור מתקנים בנכס (Amenities) --- */
+.amenities-section {
+  margin-top: 40px;
+  background-color: #f7f1eb; /* רקע פנימי מודגש קלות */
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid rgba(173, 153, 124, 0.2);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2a2520;
+  margin-bottom: 20px;
+}
+
+.amenities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* פריט מתקן בודד */
+.amenity-item {
+  background-color: #ffffff;
+  border: 1px solid #e8e2d9;
+  padding: 10px 18px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.amenity-badge {
+  color: #3a3530;
+  font-weight: 500;
+}
+
+.amenity-price {
+  color: #bc9c6e; /* מחיר המתקן בזהב */
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* --- אזור חוות דעת (Reviews) --- */
+.reviews-section {
+  margin-top: 40px;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* קופסת ביקורת בודדת */
+.review-box {
+   background-color: #faf6f0;;
+  border: 1px solid #eef0eb;
+  border-right: 4px solid #c5a880; /* פס זהב אנכי בצד ימין של התגובה */
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.reviewer-name {
+  font-size: 1.05rem;
+  color: #2a2520;
+}
+
+/* כוכבי דירוג */
+.stars-container {
+  display: flex;
+  gap: 3px;
+}
+
+.star {
+  font-size: 1.2rem;
+}
+
+.star.filled {
+  color: #bc9c6e; /* כוכב מלא בזהב */
+}
+
+.star.empty {
+  color: #e0d8cd; /* כוכב ריק אפור-שמנת */
+}
+
+.review-comment {
+  font-size: 1rem;
+  color: #5c554e;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* הודעות ריקות */
+.empty-msg {
+  font-style: italic;
+  color: #8a8075;
+  font-size: 0.95rem;
+}
+
+/* --- תחתית הדף וכפתור חזרה --- */
+.bottom-divider {
+  height: 1px;
+  background-color: #e0d8cd;
+  margin: 40px 0 25px 0;
+}
+
+/* כפתור החזרה לרשימה */
+.back-list-btn {
+  background-color: transparent;
+  color: #bc9c6e;
+  border: 1px solid #c5a880;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.back-list-btn:hover {
+  background-color: #c5a880;
+  color: #ffffff;
+  box-shadow: 0 5px 15px rgba(197, 168, 128, 0.3);
+}
+
+/* הודעת טעינה מונפשת */
+.loading-msg {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7a7065;
+  padding: 50px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  border: 1px dashed #c5a880;
+  box-shadow: 0 10px 30px rgba(197, 168, 128, 0.05);
+}
+
+/* התאמה רספונסיבית לטאבלטים וסמארטפונים */
+@media (max-width: 768px) {
+  .card-inner {
+    padding: 25px;
+  }
+  
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .property-name {
+    font-size: 1.6rem;
+  }
+
+  .review-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .back-list-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+/* פריסת העמוד הכללית */
+.dark-page-wrapper {
+  background-color: #faf6f0; 
+  color: #3a3530; 
+  min-height: 100vh;
+  padding: 50px 24px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  direction: rtl;
+}
+
+/* כותרת עמוד ראשית מודגשת ומלכותית */
+.main-title {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 700; 
+  letter-spacing: 1px;
+  color: #2a2520;
+  margin-bottom: 40px;
+}
+
+.main-title::after {
+  content: "♦"; 
+  display: block;
+  font-size: 1rem;
+  color: #c5a880; 
+  margin-top: 8px;
+}
+
+/* קונטיינר הכרטיס */
+.card-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* עיצוב כרטיס היוקרה המרכזי */
+.luxury-card {
+  background-color: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(197, 168, 128, 0.25);
+  box-shadow: 0 15px 40px rgba(197, 168, 128, 0.12);
+}
+
+.card-inner {
+  padding: 40px;
+}
+
+/* שם הנכס */
+.property-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2a2520;
+  margin: 0 0 15px 0;
+}
+
+/* קווי הפרדה זהובים ונקיים */
+.title-divider, .bottom-divider {
+  height: 1px;
+  background: linear-gradient(to left, transparent, #c5a880, transparent);
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.bottom-divider {
+  margin-top: 40px;
+}
+
+/* גריד נתונים מסודר */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+  background: #fffcf9;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(197, 168, 128, 0.15);
+}
+
+.property-text {
+  font-size: 1.05rem;
+  color: #4a4540;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.property-text strong {
+  color: #2a2520;
+  font-weight: 700;
+}
+
+.description-text {
+  background: #ffffff;
+  padding: 10px 5px;
+  margin-bottom: 35px;
+  border-bottom: 1px dashed #e0d8cd;
+}
+
+/* תגיות סטטוס פנוי / לא פנוי */
+.available-badge {
+  color: #2e7d32;
+  font-weight: 700;
+  background: #e8f5e9;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.unavailable-badge {
+  color: #c62828;
+  font-weight: 700;
+  background: #ffebee;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* כותרות סקשנים פנימיים */
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2a2520;
+  margin: 0 0 20px 0;
+}
+
+/* 🔥 עיצוב סקשן אטרקציות קרובות מגוגל */
+.attractions-section {
+  margin-bottom: 40px;
+}
+
+.attractions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.attraction-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 14px 20px;
+  background-color: #fffcf9;
+  border-radius: 14px;
+  border: 1px solid rgba(220, 214, 205, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.attraction-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(197, 168, 128, 0.1);
+}
+
+.attraction-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.attraction-info {
+  flex-grow: 1;
+}
+
+.attraction-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2a2520;
+  margin: 0 0 4px 0;
+}
+
+.attraction-address {
+  font-size: 0.85rem;
+  color: #7a7065;
+  margin: 0;
+  font-weight: 600;
+}
+
+.attraction-rating {
+  background-color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #bc9c6e;
+  border: 1px solid rgba(197, 168, 128, 0.3);
+}
+
+/* עיצוב מתקנים בנכס */
+.amenities-section {
+  margin-bottom: 40px;
+  border-top: 1px solid #e0d8cd;
+  padding-top: 30px;
+}
+
+.amenities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.amenity-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #faf6f0;
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1px solid rgba(197, 168, 128, 0.15);
+}
+
+.amenity-badge {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2a2520;
+}
+
+.amenity-price {
+  font-size: 0.85rem;
+  color: #b8860b;
+  font-weight: 600;
+}
+
+.amenity-price.free {
+  color: #7a7065;
+}
+
+/* עיצוב חוות דעת */
+.reviews-section {
+  margin-bottom: 20px;
+  border-top: 1px solid #e0d8cd;
+  padding-top: 30px;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-box {
+  background: #ffffff;
+  border: 1px solid rgba(220, 214, 205, 0.6);
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.reviewer-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2a2520;
+}
+
+.stars-container {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  font-size: 1.2rem;
+  color: #e0d8cd;
+}
+
+.star.filled {
+  color: #ffb100;
+}
+
+.review-comment {
+  font-size: 0.95rem;
+  color: #5a5045;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* הודעות ריקות */
+.empty-msg {
+  font-size: 0.95rem;
+  color: #7a7065;
+  font-style: italic;
+  margin: 5px 0;
+}
+
+/* כפתור חזרה יוקרתי ומלא נוכחות */
+.back-list-btn {
+  background-color: #bc9c6e; 
+  color: #ffffff; 
+  border: none;
+  padding: 12px 28px;
+  border-radius: 25px; 
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(188, 156, 110, 0.2);
+  display: block;
+  margin: 0 auto;
+}
+
+.back-list-btn:hover {
+  background-color: #a88758; 
+  box-shadow: 0 6px 20px rgba(188, 156, 110, 0.4);
+  transform: translateY(-1px);
+}
+
+/* מסך טעינה */
+.loading-msg {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #7a7065;
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e0d8cd;
+  border-top-color: #bc9c6e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* רספונסיביות למובייל */
+@media (max-width: 768px) {
+  .card-inner { padding: 25px; }
+  .info-grid { grid-template-columns: 1fr; gap: 15px; }
+  .review-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .main-title { font-size: 2.2rem; }
+}
+.google-map-container {
+  width: 100%;
+  height: 350px; 
+  border-radius: 16px;
+  border: 1px solid rgba(197, 168, 128, 0.3);
+  box-shadow: 0 4px 15px rgba(197, 168, 128, 0.08);
+  margin-bottom: 25px;
+}
+/* ==========================================================================
+   6.א. עיצוב כפתור הוספת תגובה החדש
+   ========================================================================== */
+.add-review-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* מרווח בין האייקון לטקסט */
+  
+  /* צבעים ואסתטיקה יוקרתית */
+  background-color: #faf6f0; /* רקע שמנת עדין שמתכתב עם האתר */
+  color: #bc9c6e; /* זהב המותג */
+  border: 1px solid #c5a880; /* מסגרת זהב דקה */
+  
+  /* מידות ומבנה */
+  padding: 10px 22px;
+  border-radius: 12px; /* פינות מעוגלות עדינות שמתאימות לכרטיסי הביקורות */
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  
+  /* מרחקים ואפקטים */
+  margin-bottom: 25px; /* מרווח קל מהרשימה שמתחתיו */
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(197, 168, 128, 0.05);
+}
+
+/* אפקט ריחוף (Hover) - הכפתור מתמלא בצורה אלגנטית */
+.add-review-btn:hover {
+  background-color: #bc9c6e; /* הרקע הופך לזהב מלא */
+  color: #ffffff; /* הטקסט הופך ללבן קריא */
+  box-shadow: 0 4px 15px rgba(188, 156, 110, 0.25);
+  transform: translateY(-1px); /* הרמה קטנה וכמעט בלתי מורגשת */
+}
+
+/* אפקט לחיצה (Active) */
+.add-review-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(188, 156, 110, 0.15);
+}
+.owner-section {
+  margin: 30px 0;
+  padding: 20px;
+  background-color: #f8f5f0;
+  border-radius: 12px;
+  border-right: 4px solid #bfa181; /* פס זהוב בצד */
+}
+
+.owner-card p {
+  margin: 5px 0;
+  color: #444;
+  font-size: 1.1rem;
+}
+/* עיצוב טופס חוות דעת */
+.add-review-container {
+  background-color: #fcfcfc; /* רקע עדין */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  margin-top: 20px;
+  direction: rtl; /* יישור לימין */
+}
+
+.review-form .mb-3 {
+  display: flex;
+  flex-direction: column; /* מסדר את התווית מעל שדה הקלט */
+  margin-bottom: 15px;
+}
+
+.review-form .form-label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.review-form .form-control {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%; /* תופס את כל הרוחב */
+  box-sizing: border-box;
+}
+
+.review-form .form-control:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+.review-form button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+}
+.stars-container {
+  display: flex;
+  gap: 4px; /* רווח קטן בין כוכב לכוכב */
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.star {
+  color: #ccc; /* כוכב ריק בצבע אפור */
+  transition: color 0.3s ease; /* אנימציה עדינה */
+}
+
+/* הכיתה שמוסיפה צבע לדירוג שנבחר */
+.star.filled {
+  color: #ffc107; /* צבע צהוב בוהק */
+  text-shadow: 0 0 5px rgba(255, 193, 7, 0.3); /* אפקט זוהר עדין */
+}
+
+/* עיצוב כללי לכרטיס חוות הדעת בשביל שייראה יוקרתי */
+.review-card {
+  background: #eedfdf;
+  border: 1px solid #333;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  /* color: #eee; */
+}
+.map-control {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.btn-outline-info {
+  background-color: transparent;
+  border: 2px solid #17a2b8;
+  color: #17a2b8;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-outline-info:hover {
+  background-color: #17a2b8;
+  color: white;
+}
+/* עיצוב הכפתור החדש */
+.btn-modern {
+  background-color: #f0f0f0; /* אפור בהיר מאוד - בולט על רקע כהה */
+  color: #333;             /* טקסט כהה לניגודיות */
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;     /* כפתור מעוגל ואלגנטי */
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: block;
+  margin: 20px auto;
+}
+
+.btn-modern:hover {
+  background-color: #ffffff; /* לבן בוהק במעבר עכבר */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* עיצוב מיכל המפה */
+.map-container {
+  height: 400px;
+  width: 100%;
+  border-radius: 12px;
+  margin: 20px 0;
+  border: 2px solid #555; /* מסגרת עדינה למפה */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.images-gallery-container {
+  display: flex;         /* הופך את המכולה לשורת גמישה */
+  flex-wrap: wrap;       /* מאפשר ירידת שורה במידת הצורך */
+  justify-content: center; /* ממקם את התמונות במרכז השורה */
+  gap: 15px;             /* מרווח בין התמונות */
+  margin: 20px 0;
+}
+
+.property-image {
+  width: 250px; 
+  height: 180px; 
+  object-fit: cover; 
+  border-radius: 12px;
+  border: 1px solid rgba(197, 168, 128, 0.4);
+  padding: 4px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}

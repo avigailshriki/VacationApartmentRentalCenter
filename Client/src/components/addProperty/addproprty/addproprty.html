@@ -1,0 +1,62 @@
+<div class="dark-page-wrapper">
+  <h1>{{ isEditMode ? 'עדכון פרטי הנכס' : 'הוספת נכס חדש למערכת' }}</h1>
+
+  
+  <form [formGroup]="propertyForm" (ngSubmit)="onSubmit()">
+    <div formGroupName="Property">
+
+      <div class="mb-3">
+        <label class="form-label">* כותרת הנכס</label>
+        <input type="text" class="form-control" formControlName="Title"
+          placeholder="לדוגמה: סוויטה יוקרתית בעיר העתיקה">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">* עיר</label>
+        <input #cityInput type="text" class="form-control" formControlName="City" placeholder="לדוגמה: ירושלים"
+          (blur)="onCityBlur()">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">* כתובת מלאה</label>
+        <input #addressInput type="text" class="form-control" formControlName="Address" placeholder="רחוב ומספר בית"
+          (blur)="onAddressBlur()">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">* מחיר ללילה (בשקלים)</label>
+        <input type="number" class="form-control" formControlName="PricePerNight">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">* קיבולת אורחים מקסימלית</label>
+        <input type="number" class="form-control" formControlName="Capacity">
+      </div>
+
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" formControlName="IsAvailable" id="availabilityCheck">
+        <label class="form-check-label" for="availabilityCheck">זמין להזמנה מיידית</label>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">תיאור הנכס</label>
+        <textarea class="form-control" formControlName="Description" placeholder="ספר בקצרה על הדירה..."></textarea>
+      </div>
+      <div class="mb-3">
+  <label class="form-label">העלאת תמונות (גרירה או בחירה, עד 5)</label>
+  <div class="drop-zone" (dragover)="$event.preventDefault()" (drop)="onDrop($event)" (click)="fileInput.click()">
+    <p>{{ selectedFiles.length > 0 ? selectedFiles.length + ' קבצים נבחרו' : 'גררי תמונות לכאן או לחצי לבחירה' }}</p>
+    <input type="file" #fileInput (change)="onFileSelected($event)" multiple style="display: none;">
+  </div>
+</div>
+
+<div class="image-preview-container">
+  <div *ngFor="let previewUrl of imagePreviews; let i = index" class="preview-item">
+    <img [src]="previewUrl" alt="תצוגה מקדימה" class="preview-img">
+    <button type="button" class="remove-btn" (click)="removeImage(i)">×</button>
+  </div>
+</div>
+      <button type="submit" class="btn btn-primary">שמור נכס</button>
+    </div>
+  </form>
+</div>

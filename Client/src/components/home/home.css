@@ -1,0 +1,170 @@
+/* עיצוב גלובלי לדף הבית */
+.home-wrapper {
+  font-family: 'Assistant', sans-serif;
+  line-height: 1.7;
+  color: #444;
+  direction: rtl;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* כותרת ראשית (Hero) */
+.hero-section {
+  height: 70vh;
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+              url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: wheat;
+}
+
+.hero-content h1 { font-size: 3rem; margin-bottom: 15px; }
+.hero-content p { font-size: 1.2rem; margin-bottom: 25px; opacity: 0.9; }
+
+.cta-btn {
+  padding: 15px 40px;
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover { background-color: #d35400; transform: translateY(-2px); }
+
+/* סקציית "עלינו" */
+.about-extended { padding: 60px 20px; background: #fff; text-align: center; }
+.about-extended h2 { color: #2c3e50; margin-bottom: 20px; }
+
+/* גריד יתרונות */
+.values-section, .value-prop { padding: 60px 20px; background-color: #f8f9fa; }
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.value-card {
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.value-card:hover { transform: translateY(-10px); }
+.value-card h4 { color: #e67e22; margin-bottom: 10px; }
+
+/* הטבות לבעלי נכסים */
+.owner-benefits { padding: 60px 20px; background: white; }
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.benefits-list li {
+  margin-bottom: 15px;
+  padding: 15px;
+  border-right: 4px solid #e67e22;
+  background: #fdfdfd;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.03);
+}
+.home-wrapper {
+  font-family: sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.hero-section {
+  padding: 80px 20px;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+.cta-btn {
+  padding: 12px 25px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.value-card {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.owner-section {
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+}
+/* עיצוב כללי */
+.home-wrapper { font-family: 'Assistant', sans-serif; }
+.container { max-width: 1000px; margin: auto; padding: 40px 20px; }
+
+/* כפתורים */
+.cta-btn { padding: 15px 30px; background: #333; color: white; border: none; cursor: pointer; border-radius: 5px; }
+.cta-btn.secondary { background: #e67e22; margin-top: 20px; }
+
+/* גריד יתרונות */
+.values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
+.value-card { padding: 25px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+/* הטבות בעלים */
+.benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 30px 0; }
+.benefit-item { padding: 15px; background: #f9f9f9; border-right: 3px solid #e67e22; }
+
+/* אזור זכויות היוצרים */
+.footer-bottom { 
+  background: #f0f0f0; 
+  text-align: center; 
+  padding: 20px; 
+  font-size: 0.85rem; 
+  color: #777; 
+}
+
+.footer-links a { color: #555; text-decoration: none; margin: 0 10px; }
+.footer-links a:hover { color: #e67e22; }
+.hero-content h1 {
+  font-weight: 800; /* גופן עבה ומודגש */
+  font-size: 3rem;  /* הגדלה קלה כדי לתת נוכחות */
+  color: #ffffff;   /* לבן בוהק לקריאות מקסימלית */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* צל עדין מאחורי האותיות להדגשה */
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-weight: 600; /* הדגשה גם לטקסט המשני */
+  font-size: 1.4rem;
+  color: #f1f1f1;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9); /* הדגשה חזקה לטקסט המשני */
+}
