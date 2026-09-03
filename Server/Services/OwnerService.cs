@@ -41,6 +41,17 @@ namespace Services
 
         public async Task<OwnersResource?> Update(int id, Owners obj)
         {
+            // מצפינים סיסמה חדשה רק אם נשלחה בפועל; אחרת משאירים ריק כדי שהרפוזיטורי
+            // לא ידרוס את הסיסמה הקיימת (למשל בעדכון פרופיל רגיל בלי שינוי סיסמה).
+            if (!string.IsNullOrWhiteSpace(obj.Password))
+            {
+                obj.Password = BCrypt.Net.BCrypt.HashPassword(obj.Password);
+            }
+            else
+            {
+                obj.Password = string.Empty;
+            }
+
             var updatedEntity = await ownersRepository.Update(id, obj);
 
             if (updatedEntity == null)
@@ -50,16 +61,35 @@ namespace Services
         }
         public async Task<OwnersResource?> LoginAsync(LoginRequest request)
         {
-            var owner = await ownersRepository.GetByEmailAndPassword(request.Email, request.Password);
+            var owner = await ownersRepository.GetByEmail(request.Email);
 
-            if (owner == null)
+            if (owner == null || string.IsNullOrEmpty(owner.Password))
             {
                 return null;
             }
+
+            if (!IsPasswordValid(request.Password, owner.Password))
+            {
+                return null;
+            }
+
             var resource = _mapper.Map<OwnersResource>(owner);
             resource.FullName = $"{owner.FirstName} {owner.LastName}".Trim();
 
             return resource;
+        }
+        // עוטפים את BCrypt.Verify כדי שסיסמה ישנה שנשמרה כטקסט גלוי (לפני המעבר להצפנה)
+        // לא תפיל את הבקשה עם חריגה, אלא פשוט תיכשל כניסה כרגילה.
+        private static bool IsPasswordValid(string plainPassword, string storedPassword)
+        {
+            try
+            {
+                return BCrypt.Net.BCrypt.Verify(plainPassword, storedPassword);
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

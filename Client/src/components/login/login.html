@@ -4,5 +4,6 @@
     <input type="text" placeholder="הכנס כתובת אימייל" [(ngModel)]="data.email" name="email" required>
     <input type="password" placeholder="הכנס סיסמה" [(ngModel)]="data.password" name="password" required>
     <button (click)="onSubmitLogin()">התחבר</button>
+    <app-google-signin-button text="signin_with" [width]="320" (credential)="onGoogleCredential($event)"></app-google-signin-button>
   </form>
 </div>

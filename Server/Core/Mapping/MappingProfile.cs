@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Core.Models;
 using Core.Resources;
 using System;
@@ -29,6 +29,8 @@ namespace Core.Mapping
             CreateMap<Review, ReviewResource>().ReverseMap();
             //LoginRequest
             CreateMap<LoginRequest, LoginRequestResource>().ReverseMap();
+            //PropertyAvailability
+            CreateMap<PropertyAvailability, PropertyAvailabilityResource>().ReverseMap();
         }
 
     }

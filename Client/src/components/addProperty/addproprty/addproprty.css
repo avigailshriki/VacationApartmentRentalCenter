@@ -399,3 +399,20 @@ textarea.form-control {
   width: 20px;
   height: 20px;
 }
+.edit-note {
+  color: #a68a6d;
+  font-size: 0.9rem;
+  margin: 10px 0 20px 0;
+  text-align: center;
+}
+.availability-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+.availability-title {
+  font-size: 1.2rem;
+  margin-bottom: 14px;
+  color: #3a3530;
+}

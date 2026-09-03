@@ -4,6 +4,7 @@ import { IImages } from '../../Interfaces/Iproperty';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-images', 
@@ -13,6 +14,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./images.css']
 })
 export class Images implements OnInit {
+  apiUrl = environment.apiUrl;
   allImages: IImages[] = [];
   isLoading = true; 
   images$!: Observable<any[]>;
@@ -26,19 +28,8 @@ export class Images implements OnInit {
   }
   loadAllImages() {
     this.isLoading = true;
-    console.log("--- מנסה למשוך נתונים מהשרת ---");
-
     this.propertyService.getAllImages().subscribe({
       next: (data) => {
-        console.log("נתונים הגיעו בהצלחה מהשרת:", data);
-
-        if (data && data.length > 0) {
-          console.log("דוגמה לאובייקט ראשון:", data[0]);
-          console.log("ImageUrl קיים?", data[0].ImageUrl !== undefined);
-          console.log("Id קיים?", data[0].Id !== undefined);
-        } else {
-          console.warn("השרת החזיר מערך ריק");
-        }
         this.allImages = data;
         this.isLoading = false;
       },

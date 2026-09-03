@@ -27,5 +27,6 @@
     </div>
     
     <button type="submit">הרשם</button>
+    <app-google-signin-button text="signup_with" [width]="350" (credential)="onGoogleCredential($event)"></app-google-signin-button>
   </form>
 </div>

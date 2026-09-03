@@ -20,5 +20,8 @@ namespace Core.Services
         public Task<List<Review?>> GetPropertyReviews(int propertyId);
         public Task<PropertiesResource?> ChangeStatus(int id);
         Task<PropertiesResource> AddPropertyByOwnerID(int ownerId, Properties property);
+        public Task<PagedResult<PropertiesResource?>> GetAllPaged(int page, int pageSize);
+        public Task<PagedResult<PropertiesResource?>> GetFilteredPaged(string? title, string? city, double? maxPrice, int? capacity, int page, int pageSize);
+        public Task<List<string>> GetDistinctCities();
     }
 }

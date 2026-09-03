@@ -1,3 +1,10 @@
+export interface IPagedResult<T> {
+  Items: T[];
+  TotalCount: number;
+  Page: number;
+  PageSize: number;
+  TotalPages: number;
+}
 export interface IProperty {
   Id?: number;
   OwnerID?: number;
@@ -42,4 +49,9 @@ export interface IImages {
   ImageUrl: string;
   AltText?: string;
   Property: IProperty;
+}export interface IPropertyAvailability {
+  Id: number;
+  PropertyId: number;
+  StartDate: string;
+  EndDate: string;
 }

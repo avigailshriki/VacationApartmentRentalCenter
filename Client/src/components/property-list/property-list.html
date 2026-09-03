@@ -50,3 +50,10 @@
     <p class="loading-properties">לא נמצאו נכסים...</p>
     }
   </div>
+  @if (totalPages > 1) {
+  <div class="pagination-container" style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:20px;">
+    <button (click)="previousPage()" [disabled]="currentPage === 1" class="filter-control">הקודם</button>
+    <span>עמוד {{currentPage}} מתוך {{totalPages}} ({{totalCount}} נכסים)</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="filter-control">הבא</button>
+  </div>
+  }

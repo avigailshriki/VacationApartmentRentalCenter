@@ -349,22 +349,6 @@
   border-bottom: 1px dashed #e0d8cd;
 }
 
-/* תגיות סטטוס פנוי / לא פנוי */
-.available-badge {
-  color: #2e7d32;
-  font-weight: 700;
-  background: #e8f5e9;
-  padding: 4px 12px;
-  border-radius: 12px;
-}
-
-.unavailable-badge {
-  color: #c62828;
-  font-weight: 700;
-  background: #ffebee;
-  padding: 4px 12px;
-  border-radius: 12px;
-}
 
 /* כותרות סקשנים פנימיים */
 .section-title {

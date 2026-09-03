@@ -4,11 +4,13 @@ import { Nav } from '../components/nav/nav/nav';
 import { HttpClientModule } from '@angular/common/http';
 import { Footer } from '../components/footer/footer';
 import { CommonModule } from '@angular/common';
+import { ToastComponent } from '../components/toast/toast';
+import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Nav, HttpClientModule, Footer, CommonModule],
+  imports: [RouterOutlet, Nav, HttpClientModule, Footer, CommonModule, ToastComponent, ConfirmDialogComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

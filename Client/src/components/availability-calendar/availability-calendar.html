@@ -1,0 +1,43 @@
+<div class="availability-calendar">
+  <div class="calendar-header">
+    <button type="button" class="nav-btn" (click)="previousMonth()">‹</button>
+    <span class="month-label">{{ monthNames[currentMonth] }} {{ currentYear }}</span>
+    <button type="button" class="nav-btn" (click)="nextMonth()">›</button>
+  </div>
+
+  <div class="calendar-grid">
+    <div class="weekday-label" *ngFor="let wd of weekDays">{{ wd }}</div>
+    <div *ngFor="let day of calendarDays" class="day-cell" [class.other-month]="!day.inCurrentMonth"
+      [class.past]="day.isPast" [class.blocked]="day.isBlocked && !day.isPast"
+      [class.available]="!day.isBlocked && !day.isPast && day.inCurrentMonth">
+      {{ day.date.getDate() }}
+    </div>
+  </div>
+
+  <div class="calendar-legend">
+    <span class="legend-item"><span class="dot available-dot"></span> פנוי</span>
+    <span class="legend-item"><span class="dot blocked-dot"></span> תפוס</span>
+  </div>
+
+  @if (editable) {
+  <div class="block-form">
+    <label class="form-label">חסימת טווח תאריכים</label>
+    <div class="block-form-row">
+      <input type="date" #startInput class="form-control">
+      <span class="range-sep">עד</span>
+      <input type="date" #endInput class="form-control">
+      <button type="button" class="btn btn-primary" (click)="blockRange(startInput, endInput)">חסימת תאריכים</button>
+    </div>
+  </div>
+
+  @if (ranges.length > 0) {
+  <div class="blocked-ranges-list">
+    <label class="form-label">תאריכים חסומים</label>
+    <div *ngFor="let r of ranges" class="range-item">
+      <span>{{ r.StartDate | date:'dd/MM/yyyy' }} - {{ r.EndDate | date:'dd/MM/yyyy' }}</span>
+      <button type="button" class="remove-btn" (click)="unblockRange(r.Id)">×</button>
+    </div>
+  </div>
+  }
+  }
+</div>

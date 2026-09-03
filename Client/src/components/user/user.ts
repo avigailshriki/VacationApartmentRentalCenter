@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/userService/user-service';
 import { IOwner } from '../../Interfaces/Iproperty';
 import { AuthService } from '../../services/AuthService/auth-service';
+import { ToastService } from '../../services/ToastService/toast-service';
 
 @Component({
   selector: 'app-user',
@@ -14,6 +15,7 @@ import { AuthService } from '../../services/AuthService/auth-service';
 export class User implements OnInit {
   userService = inject(UserService);
   authService = inject(AuthService)
+  toastService = inject(ToastService);
   cdr = inject(ChangeDetectorRef);
   id: number = 0;
   firstName: string = '';
@@ -42,9 +44,12 @@ export class User implements OnInit {
     this.userService.update(this.id, this.user).subscribe({
       next: (res) => {
         this.authService.updateUserName(this.user.FirstName || '');
-        alert('✅ הפרטים עודכנו בהצלחה!');
+        this.toastService.success('הפרטים עודכנו בהצלחה!');
       },
-      error: (err) => console.error(err)
+      error: (err) => {
+        console.error(err);
+        this.toastService.error('אירעה שגיאה בעדכון הפרטים.');
+      }
     });
   }
 }

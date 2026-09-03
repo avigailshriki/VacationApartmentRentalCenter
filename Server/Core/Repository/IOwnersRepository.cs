@@ -11,6 +11,5 @@ namespace Core.Repository
     public interface IOwnersRepository : IRepository<Owners>
     {
         public Task<Owners?> GetByEmail(string email);
-        public Task<Owners?> GetByEmailAndPassword(string email, string password);
     }
 }

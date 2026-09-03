@@ -1,0 +1,35 @@
+.google-signin-wrapper {
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* קו "או" מפריד - זהוב עדין, תואם לצבעי האתר */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #aaa49d;
+  font-size: 0.85rem;
+  margin: 0 0 16px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(197, 168, 128, 0.3);
+}
+
+.divider span {
+  padding: 0 12px;
+}
+
+.google-button-slot {
+  display: flex;
+  justify-content: center;
+  /* גוגל מרנדרת iframe פנימי - העיגול מרכך את הקצוות כך שיתאים לכפתורים המעוגלים באתר */
+  border-radius: 999px;
+  overflow: hidden;
+  width: fit-content;
+  margin: 0 auto;
+}

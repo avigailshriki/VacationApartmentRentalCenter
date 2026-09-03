@@ -33,17 +33,24 @@
         <input type="number" class="form-control" formControlName="Capacity">
       </div>
 
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" formControlName="IsAvailable" id="availabilityCheck">
-        <label class="form-check-label" for="availabilityCheck">זמין להזמנה מיידית</label>
-      </div>
 
       <div class="mb-3">
         <label class="form-label">תיאור הנכס</label>
         <textarea class="form-control" formControlName="Description" placeholder="ספר בקצרה על הדירה..."></textarea>
       </div>
+      @if (isEditMode && existingImages.length > 0) {
       <div class="mb-3">
-  <label class="form-label">העלאת תמונות (גרירה או בחירה, עד 5)</label>
+        <label class="form-label">תמונות קיימות</label>
+        <div class="image-preview-container">
+          <div *ngFor="let img of existingImages" class="preview-item">
+            <img [src]="img.ImageUrl" alt="תמונת הנכס" class="preview-img">
+            <button type="button" class="remove-btn" (click)="removeExistingImage(img)">×</button>
+          </div>
+        </div>
+      </div>
+      }
+      <div class="mb-3">
+  <label class="form-label">{{ isEditMode ? 'הוספת תמונות נוספות (גרירה או בחירה, עד 5)' : 'העלאת תמונות (גרירה או בחירה, עד 5)' }}</label>
   <div class="drop-zone" (dragover)="$event.preventDefault()" (drop)="onDrop($event)" (click)="fileInput.click()">
     <p>{{ selectedFiles.length > 0 ? selectedFiles.length + ' קבצים נבחרו' : 'גררי תמונות לכאן או לחצי לבחירה' }}</p>
     <input type="file" #fileInput (change)="onFileSelected($event)" multiple style="display: none;">
@@ -56,7 +63,14 @@
     <button type="button" class="remove-btn" (click)="removeImage(i)">×</button>
   </div>
 </div>
-      <button type="submit" class="btn btn-primary">שמור נכס</button>
+      <button type="submit" class="btn btn-primary">{{ isEditMode ? 'עדכן נכס' : 'שמור נכס' }}</button>
     </div>
   </form>
+
+  @if (isEditMode && propertyId) {
+  <div class="availability-section">
+    <h2 class="availability-title">📅 ניהול לוח זמינות</h2>
+    <app-availability-calendar [propertyId]="propertyId!" [editable]="true"></app-availability-calendar>
+  </div>
+  }
 </div>

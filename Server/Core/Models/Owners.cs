@@ -12,10 +12,22 @@ namespace Core.Models
     public class Owners
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "יש להזין שם פרטי")]
         public string FirstName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "יש להזין שם משפחה")]
         public string LastName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "יש להזין מספר טלפון")]
+        [Phone(ErrorMessage = "מספר טלפון לא תקין")]
         public string PhoneNumber { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "יש להזין אימייל")]
+        [EmailAddress(ErrorMessage = "כתובת אימייל לא תקינה")]
         public string Email { get; set; } = string.Empty;
+
+        // לא [Required] בכוונה - מותר לעדכן פרופיל בלי לשנות סיסמה (ראו OwnerService.Update).
         public string Password { get; set; } = string.Empty;
        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
        //public List<Properties> Properties { get; set; }

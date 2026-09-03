@@ -40,8 +40,7 @@ namespace Data.DataRepository
         }
         public async Task<Images?> GetById(int id)
         {
-            var q = _dbContext.Images.FindAsync(id);
-            return await q;
+            return await _dbContext.Images.Include(i => i.Property).FirstOrDefaultAsync(i => i.Id == id);
         }
         public async Task<Images?> Update(int id, Images obj)
         {

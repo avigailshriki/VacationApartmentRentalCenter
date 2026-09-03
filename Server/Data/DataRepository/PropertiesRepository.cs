@@ -1,4 +1,4 @@
-﻿using Core.Models;
+using Core.Models;
 using Core.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,9 +81,11 @@ namespace Data.DataRepository
             existingProperty.Title = obj.Title;
             existingProperty.Description = obj.Description;
             existingProperty.PricePerNight = obj.PricePerNight;
-            existingProperty.IsAvailable = obj.IsAvailable;
+            // הערה: IsAvailable כבר לא מנוהל דרך טופס העריכה (הוחלף בלוח הזמינות),
+            // ולכן לא נוגעים בו כאן - אחרת הוא היה מתאפס ל-false בכל שמירה כי הטופס לא שולח אותו.
             existingProperty.City = obj.City;
-            existingProperty.Amenities = obj.Amenities;
+            // הערה: לא מעדכנים כאן Amenities/Reviews/Images - טופס העריכה לא שולח אותם,
+            // ועדכון שלהם כאן היה מוחק אותם בטעות (undefined/null) בכל שמירה.
             existingProperty.Capacity = obj.Capacity;
             existingProperty.Address = obj.Address;
 
@@ -110,6 +112,61 @@ namespace Data.DataRepository
                 query = query.Where(p => p.Capacity >= capacity.Value);
 
             return await query.ToListAsync<Properties?>();
+        }
+        public async Task<(List<Properties?> Items, int TotalCount)> GetAllPaged(int page, int pageSize)
+        {
+            var query = _dbContext.Properties
+                .Include(p => p.Amenities)
+                .Include(p => p.Owner)
+                .Include(p => p.Images)
+                .OrderBy(p => p.Id)
+                .AsQueryable();
+
+            var totalCount = await query.CountAsync();
+            var items = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync<Properties?>();
+
+            return (items, totalCount);
+        }
+        public async Task<(List<Properties?> Items, int TotalCount)> GetFilteredPaged(string? title, string? city, double? maxPrice, int? capacity, int page, int pageSize)
+        {
+            var query = _dbContext.Properties
+                .Include(p => p.Amenities)
+                .Include(p => p.Images)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(title))
+                query = query.Where(p => p.Title.Contains(title));
+
+            if (!string.IsNullOrEmpty(city))
+                query = query.Where(p => p.City.Contains(city));
+
+            if (maxPrice.HasValue)
+                query = query.Where(p => p.PricePerNight <= maxPrice.Value);
+
+            if (capacity.HasValue)
+                query = query.Where(p => p.Capacity >= capacity.Value);
+
+            query = query.OrderBy(p => p.Id);
+
+            var totalCount = await query.CountAsync();
+            var items = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync<Properties?>();
+
+            return (items, totalCount);
+        }
+        public async Task<List<string>> GetDistinctCities()
+        {
+            return await _dbContext.Properties
+                .Where(p => p.City != null && p.City != "")
+                .Select(p => p.City)
+                .Distinct()
+                .OrderBy(c => c)
+                .ToListAsync();
         }
         public async Task<List<Properties?>> GetPropertiesByOwnerId(int ownerId)
         {

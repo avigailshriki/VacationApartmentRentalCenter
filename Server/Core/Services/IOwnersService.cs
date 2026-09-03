@@ -13,6 +13,5 @@ namespace Core.Services
         Task<bool> Delete(int id);
         Task<OwnersResource?> Update(int id, Owners obj);
         Task<OwnersResource?> LoginAsync(LoginRequest request);
-       
     }
 }

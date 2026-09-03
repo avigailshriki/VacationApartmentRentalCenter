@@ -1,4 +1,4 @@
-﻿using Core.Models;
+using Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data
@@ -10,6 +10,7 @@ namespace Data
         public DbSet<Core.Models.Amenities> Amenities { get; set; }
         public DbSet<Core.Models.Review> Reviews { get; set; }
         public DbSet<Core.Models.Images> Images { get; set; }
+        public DbSet<Core.Models.PropertyAvailability> PropertyAvailabilities { get; set; }
         public Context(DbContextOptions<Context> options) : base(options)
         {
 

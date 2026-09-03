@@ -54,15 +54,16 @@ namespace Data.DataRepository
             existingOwner.FirstName = obj.FirstName;
             existingOwner.LastName = obj.LastName;
             existingOwner.PhoneNumber = obj.PhoneNumber;
-            existingOwner.Password = obj.Password;
+
+            // מעדכנים את הסיסמה רק אם נשלחה סיסמה חדשה בפועל - אחרת עדכון פרופיל רגיל
+            // (כמו שינוי שם/טלפון) היה מאפס את הסיסמה הקיימת של המשתמש.
+            if (!string.IsNullOrWhiteSpace(obj.Password))
+            {
+                existingOwner.Password = obj.Password;
+            }
 
             await _dbContext.SaveChangesAsync();
             return existingOwner;
-        }
-        public async Task<Owners?> GetByEmailAndPassword(string email, string password)
-        {
-            return await _dbContext.Owners
-                .FirstOrDefaultAsync(o => o.Email == email && o.Password == password);
         }
         public async Task<Owners?> GetByEmail(string email)
         {

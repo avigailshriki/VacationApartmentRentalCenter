@@ -1,16 +1,21 @@
 // addproprty.ts
 import { Component, inject, OnInit, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PropertyService } from '../../../services/PropertiesService/property-service';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastService } from '../../../services/ToastService/toast-service';
+import { ConfirmService } from '../../../services/ConfirmService/confirm-service';
+import { AvailabilityCalendar } from '../../availability-calendar/availability-calendar';
+import { forkJoin } from 'rxjs';
 
 declare var google: any;
 
 @Component({
   selector: 'app-addproprty',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule, AvailabilityCalendar],
   templateUrl: './addproprty.html',
   styleUrl: './addproprty.css'
 })
@@ -24,8 +29,11 @@ export class Addproprty implements OnInit, AfterViewInit {
   router = inject(Router);
   route = inject(ActivatedRoute);
   cdr = inject(ChangeDetectorRef);
+  toastService = inject(ToastService);
+  confirmService = inject(ConfirmService);
   selectedFiles: File[] = [];
   imagePreviews: string[] = [];
+  existingImages: any[] = [];
   propertyForm: FormGroup;
   cityBounds: any = null;
   selectedFile: File | null = null;
@@ -43,7 +51,6 @@ export class Addproprty implements OnInit, AfterViewInit {
         Address: ['', Validators.required],
         PricePerNight: [0, [Validators.required, Validators.min(1)]],
         Capacity: [0, [Validators.required, Validators.min(1)]],
-        IsAvailable: [true],
         Description: [''],
         ImageUrl: ['']
       })
@@ -66,18 +73,46 @@ export class Addproprty implements OnInit, AfterViewInit {
   }
   ngOnInit() {
     const savedId = localStorage.getItem('Id');
-    console.log("####", savedId)
     if (!savedId) {
-      alert("לא נמצא מזהה בעלים. התחברי שנית.");
+      this.toastService.error("לא נמצא מזהה בעלים. התחברי שנית.");
       this.router.navigate(['/login']);
       return;
     }
     this.ownerIdFromLocalStorage = Number(savedId);
+
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.isEditMode = true;
+      this.propertyId = Number(idParam);
+      this.loadPropertyToForm(this.propertyId);
+    }
   }
   onSubmit() {
-    const formData = new FormData();
     const f = this.propertyForm.get('Property')?.value;
 
+    if (this.isEditMode && this.propertyId) {
+      const payload = {
+        Title: f.Title || "",
+        City: f.City || "",
+        Address: f.Address || "",
+        PricePerNight: Number(f.PricePerNight) || 0,
+        Capacity: Number(f.Capacity) || 0,
+        Description: f.Description || "ללא תיאור",
+        OwnerID: this.ownerIdFromLocalStorage
+      };
+      this.propertyService.updateProperty(this.propertyId, payload).subscribe({
+        next: () => {
+          this.uploadNewImagesIfAny(this.propertyId!);
+        },
+        error: (err) => {
+          console.error("שגיאה בעדכון הנכס:", err);
+          this.toastService.error("שגיאה בעדכון הנכס.");
+        }
+      });
+      return;
+    }
+
+    const formData = new FormData();
     formData.append('Title', f.Title || "");
     formData.append('City', f.City || "");
     formData.append('Address', f.Address || "");
@@ -92,12 +127,12 @@ export class Addproprty implements OnInit, AfterViewInit {
     this.propertyService.addPropertyWithImage(this.ownerIdFromLocalStorage!, formData)
       .subscribe({
         next: (response) => {
-          alert("הנכס נוסף בהצלחה!");
+          this.toastService.success("הנכס נוסף בהצלחה!");
           this.router.navigate(['/my-properties']);
         },
         error: (err) => {
           console.error("Server Error Details:", err.error);
-          alert("שגיאה בהוספת נכס. בדקי את ה-Console.");
+          this.toastService.error("שגיאה בהוספת נכס. בדקי את ה-Console.");
         }
       });
   }
@@ -113,8 +148,54 @@ export class Addproprty implements OnInit, AfterViewInit {
     this.propertyService.getByID(id).subscribe({
       next: (data: any) => {
         const propertyData = data.Property || data;
+        if (this.ownerIdFromLocalStorage && propertyData.OwnerID && propertyData.OwnerID !== this.ownerIdFromLocalStorage) {
+          this.toastService.error('אין לך הרשאה לערוך נכס זה.');
+          this.router.navigate(['/my-properties']);
+          return;
+        }
         this.propertyForm.patchValue({ Property: propertyData });
+        this.existingImages = propertyData.Images || [];
         this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('שגיאה בטעינת הנכס לעריכה:', err);
+        this.toastService.error('שגיאה בטעינת פרטי הנכס.');
+        this.router.navigate(['/my-properties']);
+      }
+    });
+  }
+  async removeExistingImage(image: any) {
+    const confirmed = await this.confirmService.confirm('האם למחוק את התמונה הזו?', 'מחיקה', 'ביטול');
+    if (!confirmed) return;
+
+    this.propertyService.deleteImage(image.Id).subscribe({
+      next: () => {
+        this.existingImages = this.existingImages.filter(img => img.Id !== image.Id);
+        this.toastService.success('התמונה נמחקה בהצלחה.');
+      },
+      error: (err) => {
+        console.error('שגיאה במחיקת תמונה:', err);
+        this.toastService.error('שגיאה במחיקת התמונה.');
+      }
+    });
+  }
+  uploadNewImagesIfAny(propertyId: number) {
+    if (this.selectedFiles.length === 0) {
+      this.toastService.success("הנכס עודכן בהצלחה!");
+      this.router.navigate(['/my-properties']);
+      return;
+    }
+
+    const uploads = this.selectedFiles.map(file => this.propertyService.uploadImage(file, propertyId));
+    forkJoin(uploads).subscribe({
+      next: () => {
+        this.toastService.success("הנכס והתמונות עודכנו בהצלחה!");
+        this.router.navigate(['/my-properties']);
+      },
+      error: (err) => {
+        console.error("שגיאה בהעלאת תמונות חדשות:", err);
+        this.toastService.error("פרטי הנכס נשמרו, אך הייתה שגיאה בהעלאת התמונות החדשות.");
+        this.router.navigate(['/my-properties']);
       }
     });
   }

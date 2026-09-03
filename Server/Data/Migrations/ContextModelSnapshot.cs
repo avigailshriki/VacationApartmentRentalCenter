@@ -157,6 +157,30 @@ namespace Data.Migrations
                     b.ToTable("Properties");
                 });
 
+            modelBuilder.Entity("Core.Models.PropertyAvailability", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("PropertyAvailabilities");
+                });
+
             modelBuilder.Entity("Core.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -218,10 +242,21 @@ namespace Data.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Core.Models.Review", b =>
+            modelBuilder.Entity("Core.Models.PropertyAvailability", b =>
                 {
                     b.HasOne("Core.Models.Properties", "Property")
                         .WithMany()
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("Core.Models.Review", b =>
+                {
+                    b.HasOne("Core.Models.Properties", "Property")
+                        .WithMany("Reviews")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -234,6 +269,8 @@ namespace Data.Migrations
                     b.Navigation("Amenities");
 
                     b.Navigation("Images");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

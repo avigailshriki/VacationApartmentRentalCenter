@@ -14,6 +14,9 @@ namespace Core.Repository
         public Task<List<Properties?>> GetPropertiesByOwnerId(int ownerId);
         public Task<List<Review?>> GetPropertyReviews(int propertyId);
         public Task<Properties?> AddPropertyByOwnerID(int ownerId, Properties property);
+        public Task<(List<Properties?> Items, int TotalCount)> GetAllPaged(int page, int pageSize);
+        public Task<(List<Properties?> Items, int TotalCount)> GetFilteredPaged(string? title, string? city, double? maxPrice, int? capacity, int page, int pageSize);
+        public Task<List<string>> GetDistinctCities();
         //public Task UpdateAsync(Properties property); 
     }
 }

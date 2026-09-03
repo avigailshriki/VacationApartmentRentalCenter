@@ -3,14 +3,17 @@ using Core.Repository;
 using Core.Services;
 using Data;
 using Data.DataRepository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Services;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ������ JSON
+// הגדרות JSON
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -18,51 +21,80 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
     });
-builder.Services.AddControllers()
-    .AddJsonOptions(x =>
-        x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
-builder.Services.AddControllers()
-    .AddJsonOptions(x =>
-        x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
-// ����� �-DbContext
+
+// חיבור ל-DbContext
 builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Vacation apartments")));
 
-// ����� Repositories
+// רישום Repositories
 builder.Services.AddScoped<IPropertiesReposiory, PropertiesRepository>();
 builder.Services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
 builder.Services.AddScoped<IOwnersRepository, OwnersRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<ILoginRequestService, LoginRequestService>();
 builder.Services.AddScoped<IImagesRepository, ImagesRepository>();
+builder.Services.AddScoped<IPropertyAvailabilityRepository, PropertyAvailabilityRepository>();
 
-// ����� Services
+// רישום Services
 builder.Services.AddScoped<IPropertiesService, PropertiesService>();
 builder.Services.AddScoped<IAmenitiesService, AmenitiesService>();
 builder.Services.AddScoped<IOwnersService, OwnerService>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IImagesService, ImagesService>();
+builder.Services.AddScoped<IPropertyAvailabilityService, PropertyAvailabilityService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
-// ������ Swagger
+// הגדרות Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ����� AutoMapper
+// הגדרת AutoMapper
 builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 
-// ����� CORS
+// הגדרת CORS - המקורות המורשים מגיעים מהקונפיגורציה (appsettings) ולא קשיחים בקוד
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+if (allowedOrigins == null || allowedOrigins.Length == 0)
+{
+    allowedOrigins = new[] { "http://localhost:4200" };
+}
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
-        policy => policy.WithOrigins("http://localhost:4200")
+        policy => policy.WithOrigins(allowedOrigins)
                         .AllowAnyMethod()
                         .AllowAnyHeader());
 });
 
+// הגדרת אימות JWT - חובה להגדיר "Jwt:Key" חזק (32+ תווים) ב-User Secrets לפני ההרצה,
+// כדי שלא יהיה מפתח חתימה קבוע/גלוי בקוד שמחובר לגיט.
+var jwtKey = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrWhiteSpace(jwtKey) || Encoding.UTF8.GetByteCount(jwtKey) < 32)
+{
+    throw new InvalidOperationException(
+        "יש להגדיר מפתח JWT חזק (32 תווים לפחות) תחת \"Jwt:Key\" ב-User Secrets של פרויקט WebAPI לפני הרצת השרת.");
+}
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? "VacationApartments",
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"] ?? "VacationApartmentsClient",
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromMinutes(2)
+        };
+    });
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
-// ���� ����� ������ ���� wwwroot (���� ������ images ������)
+// שרת קבצים סטטיים מתוך wwwroot (תמונות שהועלו images/uploads)
 app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
@@ -73,9 +105,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// ����� �-CORS
+// הפעלת CORS
 app.UseCors("AllowAngular");
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

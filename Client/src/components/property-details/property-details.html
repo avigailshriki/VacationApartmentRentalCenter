@@ -12,12 +12,6 @@
           <p class="property-text"><strong>📍 מיקום:</strong> {{ property.Address }}</p>
           <p class="property-text"><strong>💰 מחיר ללילה:</strong> ₪{{ property.PricePerNight }}</p>
           <p class="property-text"><strong>👥 כמות אנשים:</strong> {{ property.Capacity }}</p>
-          <p class="property-text">
-            <strong> סטטוס:</strong>
-            <span [class.available-badge]="property.IsAvailable" [class.unavailable-badge]="!property.IsAvailable">
-              {{ property.IsAvailable ? 'זמין להזמנה מיידית' : 'לא פנוי כרגע' }}
-            </span>
-          </p>
         </div>
         <p class="property-text description-text"><strong>📖 תיאור:</strong> {{ property.Description }}</p>
       </div>
@@ -30,7 +24,7 @@
 
     <div class="images-gallery-container" *ngIf="showImages">
       <div *ngIf="property?.Images?.length; else noImages">
-        <img *ngFor="let img of property?.Images" [src]="'https://localhost:7011' + img.ImageUrl" class="property-image"
+        <img *ngFor="let img of property?.Images" [src]="apiUrl + img.ImageUrl" class="property-image"
           alt="Property Image" />
       </div>
 
@@ -45,6 +39,11 @@
       </button>
     </div>
     <div #mapElement *ngIf="showMap" class="map-container"></div>
+
+    <div class="availability-section mt-4">
+      <h3 class="section-title">📅 לוח זמינות</h3>
+      <app-availability-calendar [propertyId]="property.Id!" [editable]="false"></app-availability-calendar>
+    </div>
 
     <div class="attractions-section" *ngIf="nearbyAttractions.length > 0">
       <h3 class="section-title">✨ מה יש מעניין בסביבה?</h3>
@@ -81,6 +80,7 @@
 
       <div class="add-review-container">
         <h4>✍️ הוספת חוות דעת</h4>
+        @if (authService.isLoggedIn()) {
         <form [formGroup]="reviewForm" (ngSubmit)="submitReview()" class="review-form">
           <div class="mb-3">
             <label class="form-label">שם מלא:</label>
@@ -100,6 +100,9 @@
 
           <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">שלח חוות דעת</button>
         </form>
+        } @else {
+        <p class="empty-msg">כדי להוסיף חוות דעת יש <a routerLink="/login">להתחבר</a> קודם.</p>
+        }
       </div>
     </div>
 

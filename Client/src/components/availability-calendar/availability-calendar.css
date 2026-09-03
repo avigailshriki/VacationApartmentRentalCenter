@@ -1,0 +1,185 @@
+.availability-calendar {
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(220, 214, 205, 0.7);
+  padding: 24px;
+  direction: rtl;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.month-label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #2a2520;
+  min-width: 140px;
+  text-align: center;
+}
+
+.nav-btn {
+  background: none;
+  border: 1px solid #c5a880;
+  color: #c5a880;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: #f5ede0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.weekday-label {
+  text-align: center;
+  font-weight: 600;
+  color: #8a8378;
+  font-size: 0.85rem;
+  padding: 6px 0;
+}
+
+.day-cell {
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #3a3530;
+  background-color: #f4efe6;
+}
+
+.day-cell.other-month {
+  color: #cfc8bc;
+  background-color: transparent;
+}
+
+.day-cell.past {
+  color: #cfc8bc;
+  background-color: transparent;
+}
+
+.day-cell.available {
+  background-color: #e4f0e3;
+  color: #3d6b3a;
+}
+
+.day-cell.blocked {
+  background-color: #f5dede;
+  color: #9c3b3b;
+  font-weight: 600;
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: #6b655c;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.available-dot {
+  background-color: #7fb377;
+}
+
+.blocked-dot {
+  background-color: #d97a7a;
+}
+
+.block-form {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e0d8cd;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  color: #2a2520;
+  margin-bottom: 8px;
+}
+
+.block-form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.block-form-row .form-control {
+  padding: 8px 10px;
+  border: 1px solid #d8d0c2;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.range-sep {
+  color: #8a8378;
+}
+
+.block-form-row .btn {
+  background-color: #c5a880;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.block-form-row .btn:hover {
+  background-color: #b4966b;
+}
+
+.blocked-ranges-list {
+  margin-top: 20px;
+}
+
+.range-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #faf6f0;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #9c3b3b;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}

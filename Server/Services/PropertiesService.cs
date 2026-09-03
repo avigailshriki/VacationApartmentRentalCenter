@@ -4,6 +4,7 @@ using Core.Repository;
 using Core.Resources;
 using Core.Services;
 using Data.DataRepository;
+using System;
 
 namespace Services
 {
@@ -52,6 +53,40 @@ namespace Services
         {
             var list = await _propertiesReposiory.GetFiltered(title, city, maxPrice, capacity);
             return _mapper.Map<List<PropertiesResource>>(list);
+        }
+        public async Task<PagedResult<PropertiesResource?>> GetAllPaged(int page, int pageSize)
+        {
+            page = page < 1 ? 1 : page;
+            pageSize = pageSize < 1 ? 20 : Math.Min(pageSize, 100);
+
+            var (items, totalCount) = await _propertiesReposiory.GetAllPaged(page, pageSize);
+
+            return new PagedResult<PropertiesResource?>
+            {
+                Items = _mapper.Map<List<PropertiesResource?>>(items),
+                TotalCount = totalCount,
+                Page = page,
+                PageSize = pageSize
+            };
+        }
+        public async Task<PagedResult<PropertiesResource?>> GetFilteredPaged(string? title, string? city, double? maxPrice, int? capacity, int page, int pageSize)
+        {
+            page = page < 1 ? 1 : page;
+            pageSize = pageSize < 1 ? 20 : Math.Min(pageSize, 100);
+
+            var (items, totalCount) = await _propertiesReposiory.GetFilteredPaged(title, city, maxPrice, capacity, page, pageSize);
+
+            return new PagedResult<PropertiesResource?>
+            {
+                Items = _mapper.Map<List<PropertiesResource?>>(items),
+                TotalCount = totalCount,
+                Page = page,
+                PageSize = pageSize
+            };
+        }
+        public async Task<List<string>> GetDistinctCities()
+        {
+            return await _propertiesReposiory.GetDistinctCities();
         }
         public async Task<List<PropertiesResource>> GetOwnerProperties(int ownerId)
         {

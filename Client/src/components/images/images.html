@@ -2,7 +2,7 @@
     <div class="image-item" *ngFor="let img of allImages">
         <a [routerLink]="['/property-details/', img.PropertyId]" class="img-link">
             <div class="img-container">
-                <img [src]="'https://localhost:7011' + img.ImageUrl" 
+                <img [src]="apiUrl + img.ImageUrl" 
                      alt="Property Image" 
                      (error)="onImageError($event, img.ImageUrl)">
                 

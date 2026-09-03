@@ -4,17 +4,24 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { IProperty, IReview } from '../../Interfaces/Iproperty';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
+import { AuthService } from '../../services/AuthService/auth-service';
+import { ToastService } from '../../services/ToastService/toast-service';
+import { AvailabilityCalendar } from '../availability-calendar/availability-calendar';
 
 declare var google: any;
 
 @Component({
   selector: 'app-property-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, AvailabilityCalendar],
   templateUrl: './property-details.html',
   styleUrl: './property-details.css'
 })
 export class PropertyDetails implements OnInit {
+  apiUrl = environment.apiUrl;
+  authService = inject(AuthService);
+  toastService = inject(ToastService);
   property?: IProperty;
   nearbyAttractions: any[] = [];
   showMap: boolean = false;
@@ -52,10 +59,8 @@ export class PropertyDetails implements OnInit {
     }
   }
   loadProperty(Id: number) {
-    console.log('--- מנסה למשוך נכס עם ID:', Id);
     this.propertyService.getByID(Id).subscribe({
       next: (data: any) => {
-        console.log('--- השרת החזיר נתונים (נכס):', data);
         this.property = data;
         if (this.property) {
           this.getAllReviews();
@@ -99,12 +104,6 @@ export class PropertyDetails implements OnInit {
   this.propertyService.getAllReviews().subscribe({
     next: (reviews: IReview[]) => {
       if (this.property) {
-        // הדפסה כדי לוודא שמות שדות
-        console.log('כל חוות הדעת מהשרת:', reviews);
-        
-        // סינון רגיש - תנסי להדפיס גם את ה-ID של הנכס הנוכחי
-        console.log('מנסה לסנן עבור נכס ID:', this.property.Id);
-        
         this.property.Reviews = reviews.filter(r => Number(r.PropertyId) === Number(this.property!.Id));
         this.cdr.detectChanges();
       }
@@ -113,6 +112,7 @@ export class PropertyDetails implements OnInit {
   });
 }
   submitReview() {
+    if (!this.authService.isLoggedIn()) return;
     if (this.reviewForm.invalid || !this.property) return;
     const payload = {
       PropertyId: this.property.Id,
@@ -123,13 +123,13 @@ export class PropertyDetails implements OnInit {
     };
     this.propertyService.addReview(payload).subscribe({
       next: () => {
-        alert('תודה! חוות הדעת שלך נשלחה בהצלחה.');
+        this.toastService.success('תודה! חוות הדעת שלך נשלחה בהצלחה.');
         this.reviewForm.reset({ Rating: 5 });
         this.loadProperty(this.property!.Id!); 
       },
       error: (err) => {
         console.error('שגיאה בשליחת חוות דעת:', err);
-        alert('אירעה שגיאה בשליחת חוות הדעת.');
+        this.toastService.error('אירעה שגיאה בשליחת חוות הדעת.');
       }
     });
   }

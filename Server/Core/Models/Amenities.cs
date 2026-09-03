@@ -11,7 +11,11 @@ namespace Core.Models
     public class Amenities
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+
+        [Required(ErrorMessage = "יש להזין שם")]
+        public string Name { get; set; } = string.Empty;
+
+        [Range(0, double.MaxValue, ErrorMessage = "המחיר לא יכול להיות שלילי")]
         public double Price { get; set; }
     }
 }

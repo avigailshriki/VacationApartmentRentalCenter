@@ -12,5 +12,6 @@ namespace Core.Services
     {
        public Task<OwnersResource?> LoginAsync(LoginRequest request);
        public Task<OwnersResource?> RegisterAsync(RegisterRequest request);
+       public Task<OwnersResource?> GoogleLoginAsync(string idToken);
     }
 }

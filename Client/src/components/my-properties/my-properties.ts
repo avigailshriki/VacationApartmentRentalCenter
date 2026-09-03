@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { PropertyService } from '../../services/PropertiesService/property-service';
 import { IProperty } from '../../Interfaces/Iproperty';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+import { ToastService } from '../../services/ToastService/toast-service';
+import { ConfirmService } from '../../services/ConfirmService/confirm-service';
 
 @Component({
   selector: 'app-my-properties',
@@ -12,8 +15,11 @@ import { Router } from '@angular/router';
   styleUrl: './my-properties.css'
 })
 export class MyProperties implements OnInit {
+  apiUrl = environment.apiUrl;
   router = inject(Router);
   cdr = inject(ChangeDetectorRef);
+  toastService = inject(ToastService);
+  confirmService = inject(ConfirmService);
   allProperties: IProperty[] = [];
   properties: IProperty[] = [];
   myProperties: any[] = [];
@@ -23,7 +29,6 @@ export class MyProperties implements OnInit {
 
   ngOnInit() {
     const savedId = localStorage.getItem('Id');
-    console.log("The Id = ", savedId)
     if (savedId) {
       this.currentOwnerId = Number(savedId);
     }
@@ -37,7 +42,7 @@ export class MyProperties implements OnInit {
     if (!savedId || isNaN(ownerId)) {
       console.error("שגיאה: לא נמצא ID תקין ב-localStorage");
       this.isLoading = false;
-      alert("לא זוהית כמשתמש מחובר. אנא התחבר מחדש.");
+      this.toastService.error("לא זוהית כמשתמש מחובר. אנא התחבר מחדש.");
       return; 
     }
     this.isLoading = true;
@@ -53,20 +58,18 @@ export class MyProperties implements OnInit {
       }
     });
   }
-  deleteProperty(id: number): void {
+  async deleteProperty(id: number): Promise<void> {
     if (!id || id === 0) return;
 
-    if (confirm('האם אתה בטוח שברצונך למחוק נכס זה?')) {
+    const confirmed = await this.confirmService.confirm('האם אתה בטוח שברצונך למחוק נכס זה?');
+    if (confirmed) {
       this.myProperties = this.myProperties.filter(p => (p.Id || p.Id || p.propeIdrtyId) !== id);
       this.cdr.detectChanges();
 
       this.propertyService.DeleteProperty(id).subscribe({
-        next: (response) => {
-          console.log('נמחק בהצלחה מהשרת:', response);
-        },
         error: (err) => {
           console.error('שגיאה בזמן מחיקה בשרת:', err);
-          alert('התרחשה שגיאה בזמן המחיקה בשרת.');
+          this.toastService.error('התרחשה שגיאה בזמן המחיקה בשרת.');
           this.loadMyProperties();
         }
       });
@@ -75,24 +78,5 @@ export class MyProperties implements OnInit {
   updateProperty(id: number): void {
     if (!id) return;
     this.router.navigate([`/add-property/edit/${id}`]);
-  }
-  changeStatus(property: any): void {
-    const id = property.Id || property.Id;
-    if (!id) {
-      console.error("לא נמצא מזהה דירה תקין");
-      return;
-    }
-    this.propertyService.changeStatus(id).subscribe({
-      next: (updatedProperty: any) => {
-        console.log("הסטטוס עודכן בשרת בהצלחה");
-
-        property.IsAvailable = !property.IsAvailable;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error("העדכון בשרת נכשל", err);
-        alert("שגיאה בעדכון הסטטוס בשרת");
-      }
-    });
   }
 }

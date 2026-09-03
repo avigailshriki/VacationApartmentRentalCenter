@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Core.Models;
 using Core.Repository;
 using Core.Resources;
@@ -49,11 +49,15 @@ namespace Services
             if (file == null || file.Length == 0)
                 throw new ArgumentException("לא נבחר קובץ להעלאה.");
 
-            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+            const long maxImageSizeBytes = 10 * 1024 * 1024; // 10MB לכל תמונה
+            if (file.Length > maxImageSizeBytes)
+                throw new ArgumentException("גודל הקובץ אינו תקין (מקסימום 10MB לתמונה).");
+
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp" };
             var extension = Path.GetExtension(file.FileName).ToLower();
 
             if (!allowedExtensions.Contains(extension))
-                throw new ArgumentException("סוג קובץ לא נתמך. נא להעלות תמונה בפורמט jpg או png.");
+                throw new ArgumentException("סוג קובץ לא נתמך. נא להעלות תמונה בפורמט jpg, png או webp.");
 
             var fileName = Guid.NewGuid().ToString() + extension;
             var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");

@@ -2,6 +2,7 @@
 using Core.Models;
 using Core.Resources;
 using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -29,6 +30,8 @@ namespace WebAPI.Controllers
             if (review == null) return NotFound("ביקורת לא נמצאה");
             return Ok(review);
         }
+        // הוספת חוות דעת מותרת רק למשתמשים מחוברים (למניעת ביקורות אנונימיות/מזויפות).
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<ReviewResource>> Add([FromBody] ReviewResource reviewResource)
         {
@@ -36,6 +39,7 @@ namespace WebAPI.Controllers
             if (result == null) return BadRequest("שגיאה בהוספת הביקורת");
             return Ok(result);
         }
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> Delete(int id)
         {
@@ -43,6 +47,7 @@ namespace WebAPI.Controllers
             if (!result) return NotFound("הביקורת למחיקה לא נמצאה");
             return Ok(result);
         }
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<ReviewResource>> Update(int id, [FromBody] ReviewResource reviewResource)
         {

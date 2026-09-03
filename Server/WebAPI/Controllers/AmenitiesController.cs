@@ -2,13 +2,14 @@
 using Core.Models;
 using Core.Resources;
 using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AmenitiesController: ControllerBase
     {
 
@@ -32,19 +33,25 @@ namespace WebAPI.Controllers
             var result = await _amenitiesService.GetById(id);
             return result;
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<AmenitiesResource?> Add(Amenities amenities)
         {
             var result = await _amenitiesService.Add(amenities);
             return result;
         }
-        [HttpDelete]
+
+        [Authorize]
+        [HttpDelete("{id}")]
         public async Task<bool> Delete(int id)
         {
             var result = await _amenitiesService.Delete(id);
             return result;
         }
-        [HttpPut]
+
+        [Authorize]
+        [HttpPut("{id}")]
         public async Task<AmenitiesResource?> Update(int id, Amenities amenities)
         {
             var result = await _amenitiesService.Update(id, amenities);
